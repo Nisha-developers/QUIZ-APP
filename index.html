@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navy Group of School</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+     <header>
+        <img src="Black and White Y2k Circle Class Logo.png" alt="Navy School Logo">
+        <nav>
+            <ul>
+                <li>Students Form <i class="fa-solid fa-caret-up"></i>
+                    <div class="container-sec">
+                        <div><a href="">JSS 1</a></div>
+                        <div>JSS 2</div>
+                        <div>JSS 3</div>
+                        <div class="classes">SSS 1 <i class="fa-solid fa-caret-up"></i>
+                            <div class="senior-class">
+                                <div>Art</div>
+                                <div>Commercial</div>
+                                <div>Science</div>
+                            </div>
+                        </div>
+                        <div class="classes">SSS 2 <i class="fa-solid fa-caret-up"></i>
+                            <div class="senior-class">
+                                <div>Art</div>
+                                <div>Commercial</div>
+                                <div>Science</div>
+                            </div>
+                        </div>
+                        <div class="classes">SSS 3 <i class="fa-solid fa-caret-up"></i>
+                            <div class="senior-class">
+                                <div>Art</div>
+                                <div>Commercial</div>
+                                <div>Science</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>Students Details <i class="fa-solid fa-caret-up"></i>
+                    <div class="container-sec">
+                        <div>JSS 1</div>
+                        <div>JSS 2</div>
+                        <div>JSS 3</div>
+                        <div class="classes">SSS 1 <i class="fa-solid fa-caret-up"></i>
+                            <div class="senior-class">
+                                <div>Art</div>
+                                <div>Commercial</div>
+                                <div>Science</div>
+                            </div>
+                        </div>
+                        <div class="classes">SSS 2 <i class="fa-solid fa-caret-up"></i>
+                            <div class="senior-class">
+                                <div>Art</div>
+                                <div>Commercial</div>
+                                <div>Science</div>
+                            </div>
+                        </div>
+                        <div class="classes">SSS 3 <i class="fa-solid fa-caret-up"></i>
+                            <div class="senior-class">
+                                <div>Art</div>
+                                <div>Commercial</div>
+                                <div>Science</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>Students Quiz <i class="fa-solid fa-caret-up"></i>
+                    <div class="container-sec">
+                        <div>JSS 1</div>
+                        <div>JSS 2</div>
+                        <div>JSS 3</div>
+                        <div class="classes">SSS 1 <i class="fa-solid fa-caret-up"></i>
+                            <div class="senior-class">
+                                <div>Art</div>
+                                <div>Commercial</div>
+                                <div>Science</div>
+                            </div>
+                        </div>
+                        <div class="classes">SSS 2 <i class="fa-solid fa-caret-up"></i>
+                            <div class="senior-class">
+                                <div>Art</div>
+                                <div>Commercial</div>
+                                <div>Science</div>
+                            </div>
+                        </div>
+                        <div class="classes">SSS 3 <i class="fa-solid fa-caret-up"></i>
+                            <div class="senior-class">
+                                <div>Art</div>
+                                <div>Commercial</div>
+                                <div>Science</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div class="icons">
+            <div title="Light Mode" onclick="toggleMode()" id="toggle" style="cursor: pointer;">☀️</div>
+            <i class="fa-solid fa-bars" id="menu-toggle"></i>
+        </div>
+    </header>
+
+    <div class="mobile-nav" id="mobileNav">
+        <div class="close-btn" id="closeNav">&times;</div>
+        <ul>
+            <li data-dropdown="form">Students Form
+                <i class="fa-solid fa-caret-up"></i>
+                <div class="mobile-dropdown">
+                    <div>JSS 1</div>
+                    <div>JSS 2</div>
+                    <div>JSS 3</div>
+                    <div class="classes" data-dropdown="sss1-form">SSS 1 <i class="fa-solid fa-caret-up"></i>
+                        <div class="mobile-sub-dropdown">
+                            <div>Art</div>
+                            <div>Commercial</div>
+                            <div>Science</div>
+                        </div>
+                    </div>
+                    <div class="classes" data-dropdown="sss2-form">SSS 2 <i class="fa-solid fa-caret-up"></i>
+                        <div class="mobile-sub-dropdown">
+                            <div>Art</div>
+                            <div>Commercial</div>
+                            <div>Science</div>
+                        </div>
+                    </div>
+                    <div class="classes" data-dropdown="sss3-form">SSS 3 <i class="fa-solid fa-caret-up"></i>
+                        <div class="mobile-sub-dropdown">
+                            <div>Art</div>
+                            <div>Commercial</div>
+                            <div>Science</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li data-dropdown="details">Students Details
+                <i class="fa-solid fa-caret-up"></i>
+                <div class="mobile-dropdown">
+                    <div>JSS 1</div>
+                    <div>JSS 2</div>
+                    <div>JSS 3</div>
+                    <div class="classes" data-dropdown="sss1-details">SSS 1 <i class="fa-solid fa-caret-up"></i>
+                        <div class="mobile-sub-dropdown">
+                            <div>Art</div>
+                            <div>Commercial</div>
+                            <div>Science</div>
+                        </div>
+                    </div>
+                    <div class="classes" data-dropdown="sss2-details">SSS 2 <i class="fa-solid fa-caret-up"></i>
+                        <div class="mobile-sub-dropdown">
+                            <div>Art</div>
+                            <div>Commercial</div>
+                            <div>Science</div>
+                        </div>
+                    </div>
+                    <div class="classes" data-dropdown="sss3-details">SSS 3 <i class="fa-solid fa-caret-up"></i>
+                        <div class="mobile-sub-dropdown">
+                            <div>Art</div>
+                            <div>Commercial</div>
+                            <div>Science</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li data-dropdown="quiz">Students Quiz
+                <i class="fa-solid fa-caret-up"></i>
+                <div class="mobile-dropdown">
+                    <div>JSS 1</div>
+                    <div>JSS 2</div>
+                    <div>JSS 3</div>
+                    <div class="classes" data-dropdown="sss1-quiz">SSS 1 <i class="fa-solid fa-caret-up"></i>
+                        <div class="mobile-sub-dropdown">
+                            <div>Art</div>
+                            <div>Commercial</div>
+                            <div>Science</div>
+                        </div>
+                    </div>
+                    <div class="classes" data-dropdown="sss2-quiz">SSS 2 <i class="fa-solid fa-caret-up"></i>
+                        <div class="mobile-sub-dropdown">
+                            <div>Art</div>
+                            <div>Commercial</div>
+                            <div>Science</div>
+                        </div>
+                    </div>
+                    <div class="classes" data-dropdown="sss3-quiz">SSS 3 <i class="fa-solid fa-caret-up"></i>
+                        <div class="mobile-sub-dropdown">
+                            <div>Art</div>
+                            <div>Commercial</div>
+                            <div>Science</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <main>
+        <div class="conatiner">
+            <h1 class="headline">WELCOME TO NAVY GROUP OF SCHOOL</h1>
+
+            <p class="motto">Your success is our passion. We believe in your dreams, support your journey, and work tirelessly to turn your vision into reality.</p>
+
+            <div class="scroll-content">
+                <ul class="infinite-scroll">
+                    <li>Well-trained and qualified teachers</li>
+                    <li>Safe and secure environment</li>
+                    <li>Clean and hygienic facilities</li>
+                    <li>Adequate learning materials</li>
+                    <li>Conducive classroom environment</li>
+                    <li>Functional library and laboratories</li>
+                    <li>Good leadership and management</li>
+                    <li>Effective communication</li>
+                    <li>Support for students' well-being</li>
+                    <li>Regular maintenance and infrastructure</li>
+                    <li>Well-trained and qualified teachers</li>
+                    <li>Safe and secure environment</li>
+                    <li>Clean and hygienic facilities</li>
+                    <li>Adequate learning materials</li>
+                    <li>Conducive classroom environment</li>
+                    <li>Functional library and laboratories</li>
+                    <li>Good leadership and management</li>
+                    <li>Effective communication</li>
+                    <li>Support for students' well-being</li>
+                    <li>Regular maintenance and infrastructure</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const headline = document.querySelector('.headline');
+        const toggleBtn = document.getElementById('toggle');
+        const seniorClass = document.querySelectorAll('.senior-class, .container-sec, .classes');
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileNav = document.getElementById('mobileNav');
+        const closeNav = document.getElementById('closeNav');
+        const allDropdownItems = document.querySelectorAll('li, .container-sec > div');
+
+        // Split headline into words and animate them
+        const words = headline.textContent.trim().split(' ');
+        headline.innerHTML = '';
+
+        words.forEach((word, index) => {
+            const span = document.createElement('span');
+            span.textContent = word;
+            span.style.setProperty('--delay', `${index * 0.5}s`);
+            headline.appendChild(span);
+        });
+
+        // Toggle theme function
+        function toggleMode() {
+            const body = document.body;
+            const isLightMode = body.classList.contains('light-mode');
+
+            if (isLightMode) {
+                body.classList.remove('light-mode');
+                toggleBtn.textContent = '☀️';
+                toggleBtn.setAttribute('title', 'Light Mode');
+                seniorClass.forEach((el) => {
+                    el.classList.remove('lightMode');
+                });
+            } else {
+                body.classList.add('light-mode');
+                toggleBtn.textContent = '🌙';
+                toggleBtn.setAttribute('title', 'Dark Mode');
+                seniorClass.forEach((el) => {
+                    el.classList.add('lightMode');
+                });
+            }
+        }
+
+        // Function to toggle dropdown icon on hover for desktop navigation
+        function toggleDropdownIconOnHover(elements) {
+            elements.forEach(item => {
+                const dropdown = item.querySelector('.container-sec, .senior-class');
+                const icon = item.querySelector('i');
+
+                if (!icon) return;
+
+                item.addEventListener('mouseenter', () => {
+                    icon.classList.remove('fa-caret-up');
+                    icon.classList.add('fa-caret-down');
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    icon.classList.remove('fa-caret-down');
+                    icon.classList.add('fa-caret-up');
+                });
+            });
+        }
+
+        // Call once for desktop dropdowns
+        toggleDropdownIconOnHover(allDropdownItems);
+
+        // Open mobile menu
+        menuToggle.addEventListener('click', () => {
+            mobileNav.classList.add('open');
+        });
+
+        // Close mobile menu
+        closeNav.addEventListener('click', () => {
+            mobileNav.classList.remove('open');
+        });
+
+        // Mobile dropdown functionality
+        const mobileDropdownTriggers = document.querySelectorAll('.mobile-nav > ul > li[data-dropdown]');
+        const mobileSubDropdownTriggers = document.querySelectorAll('.mobile-nav .classes[data-dropdown]');
+
+        // Handle main dropdown toggles
+        mobileDropdownTriggers.forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const dropdown = trigger.querySelector('.mobile-dropdown');
+                const icon = trigger.querySelector('i');
+                
+                // Close other main dropdowns
+                mobileDropdownTriggers.forEach(otherTrigger => {
+                    if (otherTrigger !== trigger) {
+                        const otherDropdown = otherTrigger.querySelector('.mobile-dropdown');
+                        const otherIcon = otherTrigger.querySelector('i');
+                        otherDropdown.classList.remove('active');
+                        otherTrigger.classList.remove('dropdown-active');
+                    }
+                });
+                
+                // Toggle current dropdown
+                dropdown.classList.toggle('active');
+                trigger.classList.toggle('dropdown-active');
+            });
+        });
+
+        // Handle sub-dropdown toggles (SSS classes)
+        mobileSubDropdownTriggers.forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const subDropdown = trigger.querySelector('.mobile-sub-dropdown');
+                const icon = trigger.querySelector('i');
+                
+                // Close other sub-dropdowns in the same parent
+                const parentDropdown = trigger.closest('.mobile-dropdown');
+                const siblingSubTriggers = parentDropdown.querySelectorAll('.classes[data-dropdown]');
+                
+                siblingSubTriggers.forEach(otherTrigger => {
+                    if (otherTrigger !== trigger) {
+                        const otherSubDropdown = otherTrigger.querySelector('.mobile-sub-dropdown');
+                        otherSubDropdown.classList.remove('active');
+                        otherTrigger.classList.remove('dropdown-active');
+                    }
+                });
+                
+                // Toggle current sub-dropdown
+                subDropdown.classList.toggle('active');
+                trigger.classList.toggle('dropdown-active');
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileNav.contains(e.target) && !menuToggle.contains(e.target)) {
+                mobileNav.classList.remove('open');
+            }
+        });
+
+        // Prevent dropdown from closing when clicking inside it
+        mobileNav.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    </script>
+</body>
+</html>
