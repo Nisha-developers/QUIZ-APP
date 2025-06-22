@@ -95,7 +95,11 @@ addStudentEl.addEventListener('click', () => {
      geographyEl.checked = false;
      AgricEl.checked = false;
   }
-
+  // Clear any previous messages
+const existingMessage = messageCon.querySelector('.message');
+if (existingMessage) {
+  existingMessage.remove();
+}
   messageCon.style.display = 'flex';
   let newEl = document.createElement('div');
   newEl.classList.add('message');
