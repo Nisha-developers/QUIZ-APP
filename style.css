@@ -3,13 +3,18 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+        /* Hello Nisha, can you see me  typing????? */
         body {
             background-color: black;
-            color: white;
-            transition: all 0.3s ease;
+            color: yellow;
         }
-        
+        a{
+            color: #eee;
+            text-decoration: none;
+        }
+        a:hover{
+            color: #333;
+        }
         header {
             padding: 15px 5%;
             display: flex;
@@ -88,7 +93,12 @@
             margin-top: 80px;
             padding: 20px;
         }
-        
+        a.links{
+            color: #333;
+        }
+         a.links:hover{
+            color: #eee;
+         }
         .headline {
             display: flex;
             flex-wrap: wrap;
@@ -232,7 +242,7 @@
         
         /* Light mode styles */
         body.light-mode {
-            background-color: white;
+            background-color: rgb(221, 221, 149);
             color: black;
         }
         
@@ -359,6 +369,9 @@
             transform: rotate(180deg);
         }
         
+        footer p{
+            text-align: center;
+        }
         @media (max-width: 768px) {
             .headline {
                 font-size: 12vw;
@@ -415,6 +428,7 @@
             }
             div.icons i{
                 display: block;
+                cursor: pointer;
             }
             div.icons{
                 display: flex;
