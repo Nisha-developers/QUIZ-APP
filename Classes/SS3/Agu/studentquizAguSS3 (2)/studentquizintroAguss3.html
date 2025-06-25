@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAVY SEC SKL ABK, QUIZ EXAM</title>
+    <link rel="shortcut icon" href="../../../../Favicon_logo-removebg-preview.png" type="image/x-icon">
+    <link rel="stylesheet" href="../../../../studentquizintroAguss3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo">
+                    <img src="../../../../WhatsApp Image 2025-06-19 at 09.05.51_065ea148.jpg" alt="">
+                </div>
+                <div class="school-info">
+                    <h1>Navy Secondary School Abeokuta</h1>
+                </div>
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <span id="themeIcon">🌙</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <div class="quiz-card">
+            <div class="quiz-title">
+                <h2><i class="fas fa-graduation-cap"></i> SS3 AGU QUIZ EXAMINATION</h2>
+                  <!-- Exam Rules and Regulations -->
+            <div class="exam-rules">
+                <h3>
+                    <i class="fas fa-clipboard-list"></i>
+                    Exam Rules & Regulations
+                </h3>
+                <i>Please read carefully before you proceed</i>
+                <ul>
+                    <li>Ensure you have a stable internet connection before starting</li>
+                    <li>You must complete the exam within the allocated time limit</li>
+                    <li>Once you start, you cannot pause or restart the examination</li>
+                    <li>Make sure your device is fully charged or connected to power</li>
+                    <li>Close all unnecessary applications and browser tabs</li>
+                    <li>Do not refresh the page during the examination</li>
+                    <li>Any form of cheating or misconduct will result in disqualification</li>
+                    <li>Submit your answers before the time expires</li>
+                </ul>
+            </div>
+                <p>Please enter your details to access the examination</p>
+            </div>
+            <!-- Student Registration Form -->
+            <form class="student-form" id="studentForm">
+                <div class="form-group">
+                    <label for="firstName">
+                        <i class="fas fa-user"></i> First Name
+                    </label>
+                    <input type="text" id="firstName" name="firstName" class="form-control" 
+                           placeholder="Enter your first name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">
+                        <i class="fas fa-user"></i> Last Name
+                    </label>
+                    <input type="text" id="lastName" name="lastName" class="form-control" 
+                           placeholder="Enter your last name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="uniqueId">
+                        <i class="fas fa-id-card"></i> Unique ID
+                    </label>
+                    <input type="text" id="uniqueId" name="uniqueId" class="form-control" 
+                           placeholder="Enter your unique ID (must contain BY)" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">
+                        <i class="fas fa-book"></i> Select Subject
+                    </label>
+                    <select id="subject" name="subject" class="form-control" required>
+                        <option value="">Choose a subject...</option>
+                    </select>
+                </div>
+            </form>
+            <!-- Alert Messages -->
+            <div id="alertContainer"></div>
+            <!-- Start Exam Button -->
+            <button type="button" class="btn btn-primary pulse" id="startExamBtn" onclick="validateAndStartExam()">
+                <i class="fas fa-play-circle"></i> Start Examination
+            </button>
+        </div>
+    </div>
+
+ <script src="studentquizintroAguss3.js"></script>
+       
+</body>
+</html>
