@@ -1,13 +1,13 @@
-    const headline = document.querySelector('.headline');
+const headline = document.querySelector('.headline');
         const toggleBtn = document.getElementById('toggle');
         const seniorClass = document.querySelectorAll('.senior-class, .container-sec, .classes');
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileNav = document.getElementById('mobileNav');
-        const closeNav = document.getElementById('closeNav');
         const allDropdownItems = document.querySelectorAll('li, .container-sec > div');
-        const header = document.querySelector('header');
+        const aside = document.querySelector('aside');
         const allLinks = document.querySelectorAll('a');
-        
+        const closess = document.querySelector('.fa-times');
+        const linkaside = document.querySelector('aside');
+        const navigationAll = document.querySelectorAll('nav ul li');
+        const toggleLogo = document.querySelector('.toggle-logo');
 
         // Split headline into words and animate them
         const words = headline.textContent.trim().split(' ');
@@ -20,151 +20,183 @@
             headline.appendChild(span);
         });
 
-        // Toggle theme function
-       // Select DOM elements
-
-
-// Apply saved theme on page load
-const savedMode = localStorage.getItem('theme'); // key changed to 'theme' for clarity
-
-if (savedMode === 'light') {
-    document.body.classList.add('light-mode');
-    toggleBtn.textContent = '🌙';
-    toggleBtn.setAttribute('title', 'Dark Mode');
-    header.style.backgroundColor = 'rgb(221, 221, 149)';
-    seniorClass.forEach(el => el.classList.add('lightMode'));
-} else {
-    // If dark mode or nothing saved, apply dark mode by default
-    document.body.classList.remove('light-mode');
-    toggleBtn.textContent = '☀️';
-    toggleBtn.setAttribute('title', 'Light Mode');
-    header.style.backgroundColor = 'black';
-      allLinks.forEach((allLinks)=>{
-          allLinks.classList.add('links');
-        })
-    seniorClass.forEach(el => el.classList.remove('lightMode'));
-}
-
-// Toggle function
-function toggleMode() {
-    const isLight = document.body.classList.contains('light-mode');
-
-    if (isLight) {
-        // Switch to dark mode
-        document.body.classList.remove('light-mode');
-        localStorage.setItem('theme', 'dark');
-        toggleBtn.textContent = '☀️';
-        toggleBtn.setAttribute('title', 'Light Mode');
-        header.style.backgroundColor = 'black';
-        seniorClass.forEach(el => el.classList.remove('lightMode'));
-        allLinks.forEach((allLinks)=>{
-          allLinks.classList.add('links');
-        })
-    } else {
-        // Switch to light mode
-        document.body.classList.add('light-mode');
-        localStorage.setItem('theme', 'light');
-        toggleBtn.textContent = '🌙';
-        toggleBtn.setAttribute('title', 'Dark Mode');
-        header.style.backgroundColor = 'rgb(221, 221, 149)';
-        seniorClass.forEach(el => el.classList.add('lightMode'));
-    }
-}
-
+        // Function to detect if device is mobile
+        function isMobileDevice() {
+            return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
 
         // Function to toggle dropdown icon on hover for desktop navigation
         function toggleDropdownIconOnHover(elements) {
-            elements.forEach(item => {
-                const dropdown = item.querySelector('.container-sec, .senior-class');
-                const icon = item.querySelector('i');
+            if (!isMobileDevice()) {
+                elements.forEach(item => {
+                    const dropdown = item.querySelector('.container-sec, .senior-class');
+                    const icon = item.querySelector('i');
 
-                if (!icon) return;
+                    if (!icon) return;
 
-                item.addEventListener('mouseenter', () => {
-                    icon.classList.remove('fa-caret-up');
-                    icon.classList.add('fa-caret-down');
+                    item.addEventListener('mouseenter', () => {
+                        icon.classList.remove('fa-caret-up');
+                        icon.classList.add('fa-caret-down');
+                    });
+
+                    item.addEventListener('mouseleave', () => {
+                        icon.classList.remove('fa-caret-down');
+                        icon.classList.add('fa-caret-up');
+                    });
                 });
+            }
+        }
 
-                item.addEventListener('mouseleave', () => {
-                    icon.classList.remove('fa-caret-down');
-                    icon.classList.add('fa-caret-up');
+        // Function to handle mobile navigation clicks
+        function handleMobileNavigation() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const classItems = document.querySelectorAll('.classes');
+
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+            
+                    // Close other open nav items
+                    navItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                            const otherIcon = otherItem.querySelector('i');
+                            if (otherIcon) {
+                                otherIcon.classList.remove('fa-caret-down');
+                                otherIcon.classList.add('fa-caret-up');
+                            }
+                        }
+                    });
+
+                    // Toggle current item
+                    item.classList.toggle('active');
+                    const icon = item.querySelector('i');
+                    if (icon) {
+                        if (item.classList.contains('active')) {
+                            icon.classList.remove('fa-caret-up');
+                            icon.classList.add('fa-caret-down');
+                        } else {
+                            icon.classList.remove('fa-caret-down');
+                            icon.classList.add('fa-caret-up');
+                        }
+                    }
+                });
+            });
+
+            // Handle class items (SSS 1, SSS 2, SSS 3)
+            classItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+
+                    
+                    // Close other open class items
+                    classItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                            const otherIcon = otherItem.querySelector('i');
+                            if (otherIcon) {
+                                otherIcon.classList.remove('fa-caret-down');
+                                otherIcon.classList.add('fa-caret-up');
+                            }
+                        }
+                    });
+
+                    // Toggle current class item
+                    item.classList.toggle('active');
+                    const icon = item.querySelector('i');
+                    if (icon) {
+                        if (item.classList.contains('active')) {
+                            icon.classList.remove('fa-caret-up');
+                            icon.classList.add('fa-caret-down');
+                        } else {
+                            icon.classList.remove('fa-caret-down');
+                            icon.classList.add('fa-caret-up');
+                        }
+                    }
                 });
             });
         }
 
-        // Call once for desktop dropdowns
-        toggleDropdownIconOnHover(allDropdownItems);
+    
+function handleDesktopStickyClick() {
+    const classItems = document.querySelectorAll('.classes');
 
-        // Open mobile menu
-        menuToggle.addEventListener('click', () => {
-            mobileNav.classList.add('open');
-        });
+    classItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+ 
 
-        // Close mobile menu
-        closeNav.addEventListener('click', () => {
-            mobileNav.classList.remove('open');
-        });
+            const wasSticky = this.classList.contains('stay-open');
 
-        // Mobile dropdown functionality
-        const mobileDropdownTriggers = document.querySelectorAll('.mobile-nav > ul > li[data-dropdown]');
-        const mobileSubDropdownTriggers = document.querySelectorAll('.mobile-nav .classes[data-dropdown]');
-
-        // Handle main dropdown toggles
-        mobileDropdownTriggers.forEach(trigger => {
-            trigger.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const dropdown = trigger.querySelector('.mobile-dropdown');
-                const icon = trigger.querySelector('i');
-                
-                // Close other main dropdowns
-                mobileDropdownTriggers.forEach(otherTrigger => {
-                    if (otherTrigger !== trigger) {
-                        const otherDropdown = otherTrigger.querySelector('.mobile-dropdown');
-                        const otherIcon = otherTrigger.querySelector('i');
-                        otherDropdown.classList.remove('active');
-                        otherTrigger.classList.remove('dropdown-active');
-                    }
-                });
-                
-                // Toggle current dropdown
-                dropdown.classList.toggle('active');
-                trigger.classList.toggle('dropdown-active');
-            });
-        });
-
-        // Handle sub-dropdown toggles (SSS classes)
-        mobileSubDropdownTriggers.forEach(trigger => {
-            trigger.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const subDropdown = trigger.querySelector('.mobile-sub-dropdown');
-                const icon = trigger.querySelector('i');
-                
-                // Close other sub-dropdowns in the same parent
-                const parentDropdown = trigger.closest('.mobile-dropdown');
-                const siblingSubTriggers = parentDropdown.querySelectorAll('.classes[data-dropdown]');
-                
-                siblingSubTriggers.forEach(otherTrigger => {
-                    if (otherTrigger !== trigger) {
-                        const otherSubDropdown = otherTrigger.querySelector('.mobile-sub-dropdown');
-                        otherSubDropdown.classList.remove('active');
-                        otherTrigger.classList.remove('dropdown-active');
-                    }
-                });
-                
-                // Toggle current sub-dropdown
-                subDropdown.classList.toggle('active');
-                trigger.classList.toggle('dropdown-active');
-            });
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!mobileNav.contains(e.target) && !menuToggle.contains(e.target)) {
-                mobileNav.classList.remove('open');
+            
+            classItems.forEach(el => el.classList.remove('stay-open'));
+            if (!wasSticky) {
+                this.classList.add('stay-open');
             }
         });
+    });
 
-        // Prevent dropdown from closing when clicking inside it
-        mobileNav.addEventListener('click', (e) => {
-            e.stopPropagation();
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('aside')) {
+            classItems.forEach(item => {
+                item.classList.remove('stay-open');
+            });
+        }
+    });
+}
+
+
+
+
+        // Modify your existing initializeNavigation function
+function initializeNavigation() {
+    if (isMobileDevice()) {
+        handleMobileNavigation();
+    } else {
+        toggleDropdownIconOnHover(allDropdownItems);
+        handleDesktopStickyClick(); 
+    }
+}
+
+        // Closing and opening of the aside button
+        function toggleOpenClose() {
+            let fatoggle = true;
+            closess.classList.replace('fa-times', 'fa-bars');
+            aside.style.width = '30px';
+            aside.style.minWidth = '20px';
+            toggleLogo.style.flexDirection = 'column';
+            toggleLogo.style.rowGap = '1.5rem';
+            navigationAll.forEach((all) => {
+                all.style.display = 'none';
+            });
+
+            closess.onclick = () => {
+                fatoggle = !fatoggle;
+
+                if (fatoggle === true) {
+                    closess.classList.replace('fa-times', 'fa-bars');
+                    aside.style.width = '30px';
+                    aside.style.minWidth = '30px';
+                    toggleLogo.style.flexDirection = 'column';
+                    toggleLogo.style.rowGap = '1.5rem';
+                    navigationAll.forEach((all) => {
+                        all.style.display = 'none';
+                    });
+                } else {
+                    closess.classList.replace('fa-bars', 'fa-times');
+                    aside.style.width = '16%';
+                    aside.style.minWidth = '160px';
+                    toggleLogo.style.flexDirection = 'row';
+                    navigationAll.forEach((all) => {
+                        all.style.display = 'block';
+                    });
+                }
+            };
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            initializeNavigation();
         });
+
+        // Initialize everything
+        initializeNavigation();
+        toggleOpenClose();
+  
