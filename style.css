@@ -3,59 +3,97 @@
             padding: 0;
             box-sizing: border-box;
         }
-        /* Hello Nisha, can you see me  typing????? */
+        
         body {
             background-color: black;
             color: yellow;
         }
-        a{
+        
+        a {
             color: #eee;
             text-decoration: none;
         }
-        a:hover{
+        
+        a:hover {
             color: #333;
         }
-        header {
-            padding: 15px 5%;
+        
+        aside {
+            padding: 15px 10px;
             display: flex;
-            justify-content: space-between;
-            box-shadow: 2px 2px 8px white;
-            align-items: center;
+            flex-direction: column;
+            box-shadow: 2px 2px 8px blue;
+            background-color: black;
             position: fixed;
+            height: 100vh;
             top: 0;
             left: 0;
-            width: 100%;
-            background-color: black;
+            width: 16%;
+            min-width: 160px;
             z-index: 100000;
             transition: all 0.3s ease;
+            row-gap: 2rem;
         }
         
-        header img {
-            height: 50px;
-            width: 50px;
+        aside img {
+            height: 30px;
+            width: 30px;
             border-radius: 50%;
             background: white;
         }
         
-        header nav ul {
+        aside nav ul {
             display: flex;
-            column-gap: 1.5rem;
+            flex-direction: column;
+            row-gap: 3rem;
+            padding-top: 10rem;
             list-style: none;
         }
         
-        header nav li {
+        aside nav li {
             cursor: pointer;
             transition: all 0.8s linear;
             position: relative;
         }
         
-        header nav li:hover,
-        header nav li:active {
+        aside nav li:hover,
+        aside nav li:active {
             color: blue;
         }
         
-        header nav li:hover .container-sec {
-            display: block;
+        .fa-times, .fa-bars {
+            font-weight: bold;
+            font-size: 25px;
+            cursor: pointer;
+            color: yellow;
+        }
+        
+        /* Desktop hover behavior */
+        @media (min-width: 769px) {
+            aside nav li:hover .container-sec {
+                display: block;
+                top: -220px;
+                left: 6.5rem;
+            }
+        }
+        
+        /* Mobile touch behavior */
+        @media (max-width: 768px) {
+            aside nav li.active .container-sec {
+                display: block;
+                top: -220px;
+                left: 6.5rem;
+            }
+        }
+        
+        aside nav li i {
+            float: right;
+        }
+        
+        div.toggle-logo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .container-sec {
@@ -90,15 +128,33 @@
             justify-content: center;
             min-height: 100vh;
             text-align: center;
-            margin-top: 80px;
             padding: 20px;
+            position: relative;
+            padding-top: 40px;
         }
-        a.links{
+        
+        main div.conatiner::before {
+            position: absolute;
+            top: 0;
+            z-index: -60;
+            background-repeat: no-repeat;
+            background-size: cover;
+            content: '';
+            width: 100%;
+            height: 115vh;
+            background-blend-mode: multiply;
+            background-color: rgba(14, 13, 13, 0.8);
+            background-image: url('background.jpg');
+        }
+        
+        a.links {
             color: #333;
         }
-         a.links:hover{
+        
+        a.links:hover {
             color: #eee;
-         }
+        }
+        
         .headline {
             display: flex;
             flex-wrap: wrap;
@@ -111,12 +167,12 @@
             margin-bottom: 2rem;
         }
         
-        .lightMode{
+        .lightMode {
             color: #eee !important;
             background-color: #333 !important;
         }
         
-        .lightMode:not(.classes) > div:hover{
+        .lightMode:not(.classes) > div:hover {
             color: #333 !important;
             background-color: #eee !important;
         }
@@ -130,8 +186,8 @@
             margin-left: 0.6rem;
         }
         
-        div.icons i{
-             display: none;
+        div.icons i {
+            display: none;
         }
         
         @keyframes jumpIn {
@@ -149,34 +205,62 @@
             }
         }
         
-        .container-sec div:hover{
-             background-color: #333;
-             color: #eee;
+        .container-sec div:hover {
+            background-color: #333;
+            color: #eee;
         }
         
-        div.container-sec i{
+        div.container-sec i {
             float: right;
         }
         
-        div.senior-class{
+        div.senior-class {
             display: none;
         }
         
-        .container-sec >:nth-child(4),.container-sec >:nth-child(5),
-        .container-sec >:nth-child(6){
+        .container-sec >:nth-child(4), .container-sec >:nth-child(5),
+        .container-sec >:nth-child(6) {
             position: relative;
             background-color: #eee;
             color: #333;
         }
         
-        .container-sec >:nth-child(4):hover .senior-class,.container-sec >:nth-child(5):hover .senior-class,
-        .container-sec >:nth-child(6):hover .senior-class{
-            display: block;
-            position: absolute;
-            left: 100%;
-            z-index: 20000;
-            background-color: #eee;
-            color: #333;
+        /* Desktop hover for senior classes */
+        @media (min-width: 769px) {
+           .classes.stay-open .senior-class {
+                display: block;
+                position: absolute;
+                left: 100%;
+                z-index: 20000;
+                background-color: #eee;
+                color: #333;
+            }
+             div.senior-class a{
+                display: block;
+                color: black;  
+            }
+            div.senior-class a:hover{
+                color: white;
+            }
+        }
+        
+        /* Mobile touch for senior classes */
+        @media (max-width: 768px) {
+            .container-sec > .classes.active .senior-class {
+                display: block;
+                position: absolute;
+                left: 100%;
+                z-index: 20000;
+                background-color: #eee;
+                color: #333;
+            }
+             div.senior-class a{
+                display: block;
+                color: black;  
+            }
+            div.senior-class a:hover{
+                color: white;
+            }
         }
         
         .motto {
@@ -203,7 +287,7 @@
             display: flex;
             animation: scroll 20s linear infinite;
             list-style: none;
-            width: calc(250px * 20 + 30px * 20); /* Calculate total width */
+            width: calc(250px * 20 + 30px * 20);
         }
         
         ul.infinite-scroll li {
@@ -220,7 +304,9 @@
             border: 1px solid rgba(0, 191, 255, 0.3);
             transition: all 0.3s ease;
         }
-        
+
+
+
         ul.infinite-scroll li:hover {
             transform: translateY(-5px);
             box-shadow: 0 5px 15px rgba(0, 191, 255, 0.3);
@@ -240,7 +326,6 @@
             }
         }
         
-        /* Light mode styles */
         body.light-mode {
             background-color: rgb(221, 221, 149);
             color: black;
@@ -274,105 +359,25 @@
         body.light-mode ul.infinite-scroll li:hover {
             box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
         }
-
-        /* Mobile Navigation Styles */
-        .mobile-nav {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            height: 100%;
-            width: 70%;
-            background-color: #333;
-            color: white;
-            z-index: 10000000000;
-            padding: 2rem;
-            transition: right 0.3s ease-in-out;
-            overflow-y: auto;
-        }
-
-        .mobile-nav.open {
-            right: 0;
-        }
-
-        .mobile-nav .close-btn {
-            font-size: 2rem;
-            text-align: right;
-            cursor: pointer;
-            margin-bottom: 1.5rem;
-        }
-
-        .mobile-nav ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .mobile-nav > ul > li {
-            padding: 1rem 0;
-            font-size: 1.2rem;
-            border-bottom: 1px solid #555;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .mobile-nav .mobile-dropdown {
-            display: none;
-            background-color: #444;
-            padding: 0.5rem 0;
-            margin-top: 0.5rem;
-            border-radius: 5px;
-        }
-
-        .mobile-nav .mobile-dropdown.active {
-            display: block;
-        }
-
-        .mobile-nav .mobile-dropdown > div {
-            padding: 0.8rem 1rem;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .mobile-nav .mobile-dropdown > div:hover {
-            background-color: #555;
-        }
-
-        .mobile-nav .mobile-sub-dropdown {
-            display: none;
-            background-color: #555;
-            margin-top: 0.3rem;
-            border-radius: 3px;
-        }
-
-        .mobile-nav .mobile-sub-dropdown.active {
-            display: block;
-        }
-
-        .mobile-nav .mobile-sub-dropdown > div {
-            padding: 0.5rem 1.5rem;
-            font-size: 0.9rem;
-        }
-
-        .mobile-nav .mobile-sub-dropdown > div:hover {
-            background-color: #666;
-        }
-
-        .mobile-nav .classes {
-            position: relative;
-        }
-
-        .mobile-nav i {
-            float: right;
-            transition: transform 0.2s ease;
-        }
-
-        .mobile-nav .dropdown-active > i {
-            transform: rotate(180deg);
-        }
         
-        footer p{
+        footer p {
             text-align: center;
         }
+        
         @media (max-width: 768px) {
+            aside {
+                width: 100%;
+                min-width: 100%;
+                height: 100vh;
+                position: fixed;
+                row-gap: 2rem;
+            }
+            
+            main {
+                margin-left: 0;
+                padding-top: 2rem;
+            }
+            
             .headline {
                 font-size: 12vw;
             }
@@ -380,11 +385,6 @@
             .motto {
                 font-size: 1.5rem;
                 width: 90%;
-            }
-            
-            header nav ul {
-                column-gap: 1rem;
-                font-size: 14px;
             }
             
             ul.infinite-scroll li {
@@ -405,33 +405,10 @@
                 width: 95%;
             }
             
-            header {
-                padding: 10px 3%;
-            }
-            
-            header nav ul {
-                column-gap: 0.5rem;
-                font-size: 12px;
-            }
-            
             ul.infinite-scroll li {
                 min-width: 150px;
                 font-size: 12px;
                 padding: 10px 15px;
                 margin: 0 8px;
-            }  
-        }
-        
-        @media (max-width: 550px) {
-            header nav ul{
-                display: none;
             }
-            div.icons i{
-                display: block;
-                cursor: pointer;
-            }
-            div.icons{
-                display: flex;
-                column-gap: 2rem;
-            } 
         }
