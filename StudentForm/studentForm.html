@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student form </title>
+    <link rel="shortcut icon" href="../Favicon_logo-removebg-preview.png" type="image/x-icon">
+    <link rel="stylesheet" href="studentForm.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+    <div class="all">
+     <header>
+        <div class="image-design">
+            <img src="../../../../WhatsApp Image 2025-06-19 at 09.05.51_065ea148.jpg" alt="School Logo">
+            <h1>Nigerian Navy Secondary School, Abeokuta.</h1>
+        </div>
+        <div class="dark-mode" title="Dark Mode">☀️</div>
+    </header>
+    <main>
+        <section>
+            <h1 class="title">Student Form for SS3(Agu)</h1>
+        </section>
+        <section>
+            <form id="studentForm">
+                <label for="uniqueId">Enter your Unique Id</label>
+                <input type="text" id="uniqueId" name="uniqueId" required>
+                
+                <label for="firstName">Enter your First Name</label>
+                <input type="text" id="firstName" name="firstName" required>
+                
+                <label for="lastName">Enter your Last Name</label>
+                <input type="text" id="lastName" name="lastName" required>
+                
+                <label class="optional-group">Choose the optional subjects you are applying for:</label>
+                <div class="checkbox-group optional-group"  id="optionalSubjectsContainer"></div> 
+                  <!-- <div class="checkbox-item">
+                        <input type="checkbox" name="subjects" id="Data-Processing" value="Data-Processing">
+                        <label for="Data-Processing">Data Processing</label>
+                    </div>
+                     <div class="checkbox-item">
+                        <input type="checkbox" name="subjects" id="Marketing" value="Marketing">
+                        <label for="Marketing"> Marketing</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="subjects" id="Painting" value="Painting">
+                        <label for="Painting">Painting and Decoration</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="subjects" id="Economics" value="Economics">
+                        <label for="Economics">Economics</label>
+                    </div>
+                    
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="subjects" id="Computer" value="Computer">
+                        <label for="Computer">Computer</label>
+                    </div>
+                </div> -->
+            </form>
+            <button class="add" id="addStudent">Add Student</button>
+          
+        </section>
+    </main>
+    </div>
+      <div class="container">
+     <i class="fa-solid fa-xmark"></i>
+      </div>
+   <script src="studentForm.js" type="module"></script>
+</body>
+</html>
