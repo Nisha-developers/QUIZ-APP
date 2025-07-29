@@ -189,7 +189,12 @@
         div.icons i {
             display: none;
         }
-        
+        a.questionSet{
+            color: yellow !important;
+        }
+        a.questionSet:hover{
+            color: blue !important;
+        }
         @keyframes jumpIn {
             0% {
                 opacity: 0;
