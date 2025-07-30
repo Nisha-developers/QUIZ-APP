@@ -1,0 +1,128 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    color: yellow;
+    background-color: black;
+}
+header{
+    box-shadow: 2px 2px 10px blue; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    height: 70px;
+    padding-left: 15px;
+     width: 100%;
+     position: fixed;
+     top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: black;
+}
+header img{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    animation: rotate 8s linear infinite;
+}
+div.logo-con{
+    display: flex;
+    column-gap: 0.5rem;
+    align-items: center;
+}
+h1.class{
+    padding-right: 25px;
+}
+@keyframes rotate {
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+header h1{
+    font-size: 25px;
+}
+main{
+    margin-top: 8rem;
+}
+main h1{
+    text-align: center;
+    margin: 20px;
+}
+form{
+    box-shadow: 2px 2px 10px blue;
+    padding: 30px;
+    max-width: 800px;
+    width: 90%;
+    margin: auto;
+    border-radius: 10px;
+}
+label, input, select{
+    display: block;
+    width: 100%;
+    background-color: black;
+    color: yellow;
+    padding-left: 15px;
+ 
+}
+select:last-of-type{
+    margin-top: 2rem;
+}
+label:focus, input:focus{
+    background-color: white;
+    color: black;
+}
+
+input{
+    margin-bottom: 2rem;
+    margin-top: 0.5rem;
+    height: 35px;
+    border: 1px solid blue;
+    border-radius: 20px;
+}
+select{
+    height: 35px;
+    cursor: pointer;
+    border: 1px solid blue;
+    border-radius: 20px;
+}
+label{
+    cursor: pointer;
+}
+button{
+    display: block;
+    height: 35px;
+    margin: 2rem auto;
+    padding: 0.4rem;
+    border-radius: 10px;
+    border: 1px solid blue;
+    color: blue;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+button:hover{
+    border: 1px solid white;
+    background-color: blue;
+    color: white;
+    transform: scale(1.05);
+}
+div.alert{
+    color: green;
+    border: 1px solid green;
+    border-radius: 15px;
+    margin-top: 20px;
+    padding: 10px;
+}
+div.danger{
+    color: red;
+    border: 1px solid red;
+    border-radius: 15px;
+    margin-top: 20px;
+    padding: 10px;
+}
+
