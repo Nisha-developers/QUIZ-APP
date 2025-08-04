@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../Favicon_logo-removebg-preview.png" type="image/x-icon">
+    <title>Set Examination Form</title>
+    <link rel="stylesheet" href="setQuestionForm.css">
+</head>
+<body>
+<header>
+    <div class="logo-con">
+    <img src="../WhatsApp Image 2025-06-19 at 09.05.51_065ea148.jpg" alt="Navy Secondary School Abeokuta" class="logo">
+    <link rel="shortcut icon" href="../Favicon_logo-removebg-preview.png" type="image/x-icon">
+    <h1 class="title">Navy Secondary School Abeokuta Ogun</h1>
+</div>
+</header>
+<main>
+<h1>Setting School Examination</h1>
+<form action="">
+    <label for="totalQuestion">Total Question set</label>
+    <input type="number" max="600" min="10" class="totalQuestion" id="totalQuestion">
+    <label for="questionShown">Questions to be displayed Randomly to the student</label>
+    <input type="number" max="250" min="5" class="shownQuestion" id="questionShown">
+    <label for="images">How many images will be set for the Question</label> 
+    <input type="number" max="100" min="0" class="" id="images">
+      <label for="seconds">Exam Time in minutes</label>
+    <input type="number" id="seconds">
+     <label for="DateExam">Date of Examination</label>
+    <input type="date" id="DateExam">
+    <label for="timeExam">Time of Exam</label>
+     <input type="time" id="timeExam">
+
+      <select name="" id="selectedClass">
+        <option value="">Choose the class you want to set question for</option>
+        <option value="jss1">JSS1</option>
+        <option value="jss2">JSS2</option>
+        <option value="jss3">JSS3</option>
+        <option value="ss1Art">SS1(Art)</option>
+        <option value="ss2Art">SS2(Art)</option>
+        <option value="ss3Art">SS3(Art)</option>
+        <option value="ss1Science">SS1(Science)</option>
+        <option value="ss2Science">SS2(Science)</option>
+        <option value="ss3Science">SS3(Science)</option>
+        <option value="ss1Commercial">SS1(Commercial)</option>
+        <option value="ss2Commercial">SS2(Commercial)</option>
+        <option value="ss3Commercial">SS3(Commercial)</option>
+    </select>
+    <select name="" id="selectSubject">
+        <option value="">Select the subject you want to set</option>
+        <option value="Mathematics">Mathematics</option>
+        <option value="English">English</option>
+        <option value="Basic science">Basic science</option>
+        <option value="Basic tech">Basic tech</option>
+        <option value="Business studies">Business studies </option>
+        <option value="Agric Science">Agric Science</option>
+        <option value="French">French</option>
+        <option value="Home Economics">Home Economics</option>
+        <option value="History">History</option>
+        <option value="Physical Health Education">Physical Health Education</option>
+        <option value="National value">National value </option>
+        <option value="CCA Art">CCA Art</option>
+        <option value="CCA Drama">CCA Drama</option>
+        <option value="CCA Music">CCA Music</option>
+        <option value="Christian Religious Studies">Christian Religious Studies</option>
+        <option value="Islamic Religious Studies">Islamic Religious Studies</option>
+        <option value="Yoruba">Yoruba</option>
+        <option value="Igbo">Igbo </option>
+        <option value="Computer">Computer</option>
+        <option value="Cisco">Cisco</option>
+        <option value="Guidance and Counseling">Guidance and Counseling </option>
+    </select>
+  
+  
+    <div class="alert" style="display: none;"></div>
+</form>
+<button id="submit">Set Student Exam</button>
+<button id="continue">Continue Setting Exam Question</button>
+</main>
+
+<script type="module" src="setQuestionForm.js"></script>
+</body>
+</html>
