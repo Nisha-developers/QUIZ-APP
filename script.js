@@ -48,72 +48,65 @@ const headline = document.querySelector('.headline');
         }
 
         // Function to handle mobile navigation clicks
-        function handleMobileNavigation() {
-            const navItems = document.querySelectorAll('.nav-item');
-            const classItems = document.querySelectorAll('.classes');
+      function handleMobileNavigation() {
+    // Select all items that can act as an accordion/dropdown toggle
+    const accordionItems = document.querySelectorAll('.nav-item, .classes');
 
-            navItems.forEach(item => {
-                item.addEventListener('click', function(e) {
-            
-                    // Close other open nav items
-                    navItems.forEach(otherItem => {
-                        if (otherItem !== item) {
-                            otherItem.classList.remove('active');
-                            const otherIcon = otherItem.querySelector('i');
-                            if (otherIcon) {
-                                otherIcon.classList.remove('fa-caret-down');
-                                otherIcon.classList.add('fa-caret-up');
-                            }
-                        }
-                    });
+    accordionItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            // This is the element that was actually clicked
+            const target = e.target;
 
-                    // Toggle current item
-                    item.classList.toggle('active');
-                    const icon = item.querySelector('i');
-                    if (icon) {
-                        if (item.classList.contains('active')) {
-                            icon.classList.remove('fa-caret-up');
-                            icon.classList.add('fa-caret-down');
-                        } else {
-                            icon.classList.remove('fa-caret-down');
-                            icon.classList.add('fa-caret-up');
-                        }
+            // This is the main link that should trigger the toggle (e.g., "Student Details >")
+            const triggerLink = item.querySelector('a');
+
+            // --- The Fix ---
+            // We only want to toggle the dropdown if the click was ON the trigger link itself.
+            // If the click was on anything else inside the item (like a link in the dropdown),
+            // we do nothing and let the link work normally.
+            if (target !== triggerLink && !triggerLink.contains(target)) {
+                return; // Exit the function, don't toggle anything.
+            }
+
+            // Prevent the link from navigating away
+            e.preventDefault();
+            // Stop the event from bubbling up to parent dropdowns
+            e.stopPropagation();
+
+            const wasActive = item.classList.contains('active');
+
+            // Close all other accordion items at the same level
+            accordionItems.forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                    const otherIcon = otherItem.querySelector('i');
+                    if (otherIcon) {
+                        otherIcon.classList.remove('fa-caret-down');
+                        otherIcon.classList.add('fa-caret-up');
                     }
-                });
+                }
             });
 
-            // Handle class items (SSS 1, SSS 2, SSS 3)
-            classItems.forEach(item => {
-                item.addEventListener('click', function(e) {
+            // Toggle the current item only if it wasn't already active
+            // or if a different item was clicked. This creates a clean accordion.
+            if (!wasActive) {
+                item.classList.add('active');
+            }
 
-                    
-                    // Close other open class items
-                    classItems.forEach(otherItem => {
-                        if (otherItem !== item) {
-                            otherItem.classList.remove('active');
-                            const otherIcon = otherItem.querySelector('i');
-                            if (otherIcon) {
-                                otherIcon.classList.remove('fa-caret-down');
-                                otherIcon.classList.add('fa-caret-up');
-                            }
-                        }
-                    });
-
-                    // Toggle current class item
-                    item.classList.toggle('active');
-                    const icon = item.querySelector('i');
-                    if (icon) {
-                        if (item.classList.contains('active')) {
-                            icon.classList.remove('fa-caret-up');
-                            icon.classList.add('fa-caret-down');
-                        } else {
-                            icon.classList.remove('fa-caret-down');
-                            icon.classList.add('fa-caret-up');
-                        }
-                    }
-                });
-            });
-        }
+            // Update the icon for the current item
+            const icon = item.querySelector('i');
+            if (icon) {
+                if (item.classList.contains('active')) {
+                    icon.classList.remove('fa-caret-up');
+                    icon.classList.add('fa-caret-down');
+                } else {
+                    icon.classList.remove('fa-caret-down');
+                    icon.classList.add('fa-caret-up');
+                }
+            }
+        });
+    });
+}
 
     
 function handleDesktopStickyClick() {
