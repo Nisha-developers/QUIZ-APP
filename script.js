@@ -47,67 +47,7 @@ const headline = document.querySelector('.headline');
             }
         }
 
-        // Function to handle mobile navigation clicks
-      function handleMobileNavigation() {
-    // Select all items that can act as an accordion/dropdown toggle
-    const accordionItems = document.querySelectorAll('.nav-item, .classes');
-
-    accordionItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            // This is the element that was actually clicked
-            const target = e.target;
-
-            // This is the main link that should trigger the toggle (e.g., "Student Details >")
-            const triggerLink = item.querySelector('a');
-
-            // --- The Fix ---
-            // We only want to toggle the dropdown if the click was ON the trigger link itself.
-            // If the click was on anything else inside the item (like a link in the dropdown),
-            // we do nothing and let the link work normally.
-            if (target !== triggerLink && !triggerLink.contains(target)) {
-                return; // Exit the function, don't toggle anything.
-            }
-
-            // Prevent the link from navigating away
-            e.preventDefault();
-            // Stop the event from bubbling up to parent dropdowns
-            e.stopPropagation();
-
-            const wasActive = item.classList.contains('active');
-
-            // Close all other accordion items at the same level
-            accordionItems.forEach(otherItem => {
-                if (otherItem !== item) {
-                    otherItem.classList.remove('active');
-                    const otherIcon = otherItem.querySelector('i');
-                    if (otherIcon) {
-                        otherIcon.classList.remove('fa-caret-down');
-                        otherIcon.classList.add('fa-caret-up');
-                    }
-                }
-            });
-
-            // Toggle the current item only if it wasn't already active
-            // or if a different item was clicked. This creates a clean accordion.
-            if (!wasActive) {
-                item.classList.add('active');
-            }
-
-            // Update the icon for the current item
-            const icon = item.querySelector('i');
-            if (icon) {
-                if (item.classList.contains('active')) {
-                    icon.classList.remove('fa-caret-up');
-                    icon.classList.add('fa-caret-down');
-                } else {
-                    icon.classList.remove('fa-caret-down');
-                    icon.classList.add('fa-caret-up');
-                }
-            }
-        });
-    });
-}
-
+    
     
 function handleDesktopStickyClick() {
     const classItems = document.querySelectorAll('.classes');
@@ -136,15 +76,90 @@ function handleDesktopStickyClick() {
 }
 
 
+function handleMobileClassDropdowns() {
+    const classItems = document.querySelectorAll('.classes');
+
+    classItems.forEach(item => {
+        item.addEventListener('click', function (e) {
+           
+            e.stopPropagation(); // Stop from bubbling
+
+            const isActive = this.classList.contains('active');
+
+            // Close all others
+            classItems.forEach(cls => {
+                cls.classList.remove('active');
+                const submenu = cls.querySelector('.senior-class');
+                if (submenu) {
+                    submenu.style.maxHeight = null;
+                }
+                const icon = cls.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-caret-down');
+                    icon.classList.add('fa-caret-up');
+                }
+            });
+
+            // Toggle clicked item
+            if (!isActive) {
+                this.classList.add('active');
+                const submenu = this.querySelector('.senior-class');
+                if (submenu) {
+                    submenu.style.maxHeight = submenu.scrollHeight + 'px';
+                }
+                const icon = this.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-caret-up');
+                    icon.classList.add('fa-caret-down');
+                }
+            }
+        });
+    });
+}
 
 
-        // Modify your existing initializeNavigation function
+function handleMobileNavigation() {
+    const navItems = document.querySelectorAll('.nav-item');
+    const classItems = document.querySelectorAll('.classes');
+
+    navItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            navItems.forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                    const otherIcon = otherItem.querySelector('i');
+                    if (otherIcon) {
+                        otherIcon.classList.remove('fa-caret-down');
+                        otherIcon.classList.add('fa-caret-up');
+                    }
+                }
+            });
+
+            item.classList.toggle('active');
+            const icon = item.querySelector('i');
+            if (icon) {
+                if (item.classList.contains('active')) {
+                    icon.classList.remove('fa-caret-up');
+                    icon.classList.add('fa-caret-down');
+                } else {
+                    icon.classList.remove('fa-caret-down');
+                    icon.classList.add('fa-caret-up');
+                }
+            }
+        });
+    });
+
+    // You can skip the classItems loop here if you're using handleMobileClassDropdowns separately
+}
+
+
 function initializeNavigation() {
     if (isMobileDevice()) {
         handleMobileNavigation();
+        handleMobileClassDropdowns(); 
     } else {
         toggleDropdownIconOnHover(allDropdownItems);
-        handleDesktopStickyClick(); 
+        handleDesktopStickyClick();
     }
 }
 
