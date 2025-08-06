@@ -369,7 +369,16 @@ const juniorSubject = ["Mathematics","English","Basic science","Basic tech","Bus
         totalStudentsElement.textContent = totalStudents;
 
         if (totalStudents > 0) {
-            const completedQuizCount = allStudents.filter(s => Object.keys(s.quizScores || {}).length > 0).length;
+          const completedQuizCount = allStudents.reduce((total, student) => {
+  const scores = Object.values(student.quizScores || {});
+  const validScores = scores.filter(score =>
+    score !== null &&
+    score !== '' &&
+    !isNaN(score) &&
+    parseFloat(score) >= 0
+  );
+  return total + validScores.length;
+}, 0);
             const allScores = allStudents.flatMap(s => Object.values(s.quizScores || {})).filter(score => score !== null && score !== '' && !isNaN(score));
             const avgScore = allScores.length > 0 ? Math.round(allScores.reduce((a, b) => a + parseFloat(b), 0) / allScores.length) : '-';
 
