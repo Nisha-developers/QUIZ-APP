@@ -62,14 +62,14 @@ form{
     margin: auto;
     border-radius: 10px;
 }
-label, input, select{
+ label:not(.passage), input:not([type="radio"]), select{
     display: block;
     width: 100%;
     background-color: black;
     color: yellow;
     padding-left: 15px;
  
-}
+} 
 select:last-of-type{
     margin-top: 2rem;
 }
@@ -77,14 +77,19 @@ label:focus, input:focus{
     background-color: white;
     color: black;
 }
-
-input{
+label.exam{
+    display: inline;
+}
+.openClose{
+    margin-top: 20px;
+}
+ input:not([type="radio"]){
     margin-bottom: 2rem;
     margin-top: 0.5rem;
     height: 35px;
     border: 1px solid blue;
     border-radius: 20px;
-}
+} 
 select{
     height: 35px;
     cursor: pointer;
@@ -125,4 +130,38 @@ div.danger{
     margin-top: 20px;
     padding: 10px;
 }
+label.passage{
+    padding-left: 15px;
+}
+label#top-passage{
+    padding-bottom: 1.2rem;
+}
+div.choice{
+    margin-bottom: 1.2rem;
+}
 
+input.passageNumber{
+    margin-bottom: 0.4rem;
+}
+div.numberOfPassages{
+    margin-block: 10px;
+    padding-left: 15px;
+}
+label.CheckCom{
+    display: inline;
+}
+input[type='radio']{
+    cursor: pointer;
+}
+select:disabled{
+    border: none;
+    color: yellow;
+    text-shadow: 8px 8px 27px blue;
+    margin: 0;
+    font-size: 23px;
+    font-weight: bold;
+    -webkit-appearance: none; /* Chrome, Safari */
+  -moz-appearance: none;    /* Firefox */
+  appearance: none;  
+  cursor: not-allowed;
+}
