@@ -143,10 +143,70 @@
             display: flex;
             flex-direction: column;
         }
+        div.nextforwardforard{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            column-gap: 1rem;
+            margin-block: 1rem;
+        }
+        div.nextforwardforard > div:nth-child(2){
+            flex-grow: 2;
+        }
+        div.nextforwardforard > button:nth-child(1), div.nextforwardforard > button:nth-child(3){
+            height: 50px;
+            width: 50px;
+            border-radius: 50rem;
+            border: 1px dotted yellow;
+            color: yellow;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: scale(0.7);
+            opacity: 0.4;
+            cursor: pointer;
+            transition: all 0.2s ease-out;
+        }
+        div.nextforwardforard > button:nth-child(1):hover, div.nextforwardforard > button:nth-child(3):hover{
+            border-style: solid;
+            border-width: 2.5px;
+            color: yellow;
+            opacity: 1;
+            transform: scale(1);
+            background-color: transparent;
+        }
 
         .answer-section {
             margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
         }
+        div.passageModeDesign{
+            float: right;
+            display: flex;
+            gap: 0.1rem;
+            transform:translateY(25px) !important;
+        }
+        .passageTop{
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding-block: 2.5rem;
+            border: 1px solid blue;
+            margin-bottom: 1.5rem;
+        }
+        .passageTop input[type='radio']{
+            height: 16px;
+            width: 16px;
+            cursor: pointer;
+        }
+        #passageMode, #normalMode{
+            height: 20px !important;
+            width: 20px !important;
+        }
+         #normalMode{
+            transform: translateY(5px);
+         }
 
         .answer-section select {
             max-width: 200px;
@@ -198,6 +258,7 @@
             color: white;
             transform: scale(1.05);
         }
+        
 
         button:disabled {
             opacity: 0.5;
@@ -433,7 +494,26 @@
             background-color: #666;
             color: white;
         }
-
+        span.dots{
+            height: 5px;
+            width: 5px;
+            cursor: pointer;
+            border-radius: 50%;
+            transform: 0.8s;
+            background-color: yellow;
+            display: inline-block;
+        }
+         span.dots.active{
+           height: 10px;
+           width: 10px;
+           transform: translateY(-4px);
+           background-color: green;
+         }
+        div.dotsContainer{
+         display: flex;
+         justify-content: center;
+         gap: 0.4rem;
+        }
         .question-text {
             margin-bottom: 15px;
             color: yellow;
@@ -476,6 +556,10 @@
         .timeSet{
             font-weight: bold;
             font-size: 19.5px;
+        }
+        .disabledcontent {
+          opacity: 0.5;
+          cursor: not-allowed;
         }
 
         @media (max-width: 768px) {
