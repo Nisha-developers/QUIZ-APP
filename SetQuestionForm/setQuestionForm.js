@@ -15,12 +15,18 @@ const alertEl = document.querySelector('.alert');
 const examTime = document.getElementById('timeExam');
 const examDate = document.getElementById('DateExam');
 const continueButton = document.getElementById('continue');
+const passageTrue = document.getElementById('Yes');
+const passageFalse = document.getElementById('No');
+
+
 // Save the default JSS subjects (initial HTML options)
 const defaultJssSubjects = seletedSubject.innerHTML;
 
 const urlParams = new URLSearchParams(window.location.search);
 const selectedClassByUser = urlParams.get("class");
 const selectedSubjectUser = urlParams.get('subject');
+const passageInput = [];
+let isOpen;
 
 
 const seniorScienceSubject = [
@@ -105,18 +111,71 @@ submitExam.addEventListener('click', async () => {
             const userWantsToEdit = confirm(`An exam for ${seletedSubjectValue} already exists. Do you want to edit it?`);
 
             if (userWantsToEdit) {
-                // Load data into the form for editing
-                inputTotal.value = existingConfig.total_score;
-                shownQuestionToStudent.value = existingConfig.questions_shown_to_student;
-                imageSet.value = existingConfig.image_set;
-                timeSelected.value = existingConfig.seconds_quiz;
-                examDate.value = existingConfig.date_exam;
-                examTime.value = existingConfig.time_exam;
-                currentEditingDocId = existingConfig.id; // Store the record ID
-                // Change button to "Update" mode
-                submitExam.textContent = 'Update Exam';
-                successSignal('Now editing existing exam. Make your changes and click "Update Exam".');
+    // Load data into form
+    inputTotal.value = existingConfig.total_score;
+    shownQuestionToStudent.value = existingConfig.questions_shown_to_student;
+    imageSet.value = existingConfig.image_set;
+    timeSelected.value = existingConfig.seconds_quiz;
+    examDate.value = existingConfig.date_exam;
+    examTime.value = existingConfig.time_exam;
+    currentEditingDocId = existingConfig.id;
+    selectedClass.disabled = true;
+    seletedSubject.disabled = true;
+
+    // Update passage section if applicable
+    if (existingConfig.passage_workings && existingConfig.passage_workings.length > 0) {
+         tohandlePassage(); // render radio buttons and container 
+        passageTrue.checked = true;
+      
+
+        // Select the correct radio for number of passages
+        const numberOfPassages = existingConfig.passage_workings.length;
+        tohandlePassage();
+        const passageRadio = passageLabelEl.querySelector(`input[value="${numberOfPassages}"]`);
+        if (passageRadio) {
+            passageRadio.checked = true;
+        }
+
+        // Now create the inputs dynamically
+        handleNumberOfPassageChoosen(numberOfPassages);
+
+        // Fill in values for each passage input
+        const userInputPassage = document.querySelectorAll('.passageNumber');
+        existingConfig.passage_workings.forEach((obj, index) => {
+            if (userInputPassage[index]) {
+                userInputPassage[index].value = obj.value;
+                passageInput[index] = obj.value; // update global array
+                const yesRadio = document.querySelector(`input[name="comp${index+1}"][value="yes"]`);
+            const noRadio = document.querySelector(`input[name="comp${index+1}"][value="no"]`);
+            if (obj.compulsory) {
+                yesRadio.checked = true;
             } else {
+                noRadio.checked = true;
+            }
+            }
+        });
+    } else {
+        passageFalse.checked = true;
+        tohandlePassage(); // ensure passage section removed
+    }
+
+    // Change button to "Update" mode
+    submitExam.textContent = 'Update Exam';
+
+    // Add open/close radio buttons
+    const createElement = document.createElement('div');
+    createElement.classList.add('openClose');
+    createElement.innerHTML = `
+        <label for="open" style="color:green" class="exam">Open Examination</label>
+        <input type="radio" name="openAndClose" id="open" ${existingConfig.is_open ? 'checked' : ''}>
+        <label for="close" style="color:red" class="exam">Close Examination</label>
+        <input type="radio" name="openAndClose" id="close" ${!existingConfig.is_open ? 'checked' : ''}>
+    `;
+    seletedSubject.insertAdjacentElement('afterend', createElement);
+
+    successSignal('Now editing existing exam. Make your changes and click "Update Exam".');
+}
+else {
                 // User clicked "Cancel"
                 dangerSignal("Action cancelled. To proceed with the saved settings, click 'Continue Setting Exam'.");
             }
@@ -173,7 +232,8 @@ continueButton.addEventListener('click', async () => {
                 classSelected: existingConfig.classes_student,
                 secondsQuiz: existingConfig.seconds_quiz,
                 dateExam: existingConfig.date_exam,
-                timeExam: existingConfig.time_exam
+                timeExam: existingConfig.time_exam,
+                passageInput: Array.isArray(existingConfig.passage_workings) ? existingConfig.passage_workings : []
             };
             sessionStorage.setItem('storeResult', JSON.stringify(configToStore));
              successSignal('You will be redirected to the page in a moment to continue setting the exam');
@@ -199,13 +259,44 @@ function validateInputs() {
     const selectedClassValue = selectedClass.value;
     const timeSelectedValue = timeSelected.value;
     const dateExamValue = examDate.value;
-    const timeExamValue = examTime.value;
+    const timeExamValue = examTime.value;   
     const yearDate = new Date().getFullYear();
     const month = new Date().getMonth() + 1 < 10 ? `0${new Date().getMonth() + 1}` : `${new Date().getMonth() + 1}`;
     const dayy =   new Date().getDate() < 10 ? `0${new Date().getDate()}` : `${new Date().getDate()}`;
     const inputDay = `${yearDate}-${month}-${dayy}`;
-    console.log(inputDay)
-    if (!inputTotalValue || !shownQuestionToStudentValue || !seletedSubject.value || !selectedClassValue || !timeSelectedValue || !dateExamValue || !timeExamValue) {
+
+    let passageOk = true;
+    let valueGreater = true;
+    if(passageTrue.checked){
+        const selectedPassage = passageLabelEl.querySelectorAll('input[name="NumberOfPassage"]');
+       let emptyInput = Array.from(selectedPassage).every((passage)=>passage.checked === false)
+       if(emptyInput){
+        passageOk = false;
+       }
+       else{
+        const passageNumbers = document.querySelectorAll('.passageNumber');
+        passageNumbers.forEach((no)=>{
+          if(no.value === ''){
+            passageOk = false; 
+          }
+          else{
+          const totalInput =  Array.from(passageNumbers).reduce((sum, values)=>{return sum + Number(values.value)},0);
+          if(totalInput > shownQuestionToStudentValue - 10){
+            valueGreater = false;
+          }
+           
+          }
+        })
+
+       }
+     
+    }
+    if(passageFalse.checked){
+        passageOk = true;
+    }
+
+     
+    if (!inputTotalValue || !shownQuestionToStudentValue || !seletedSubject.value || !selectedClassValue || !timeSelectedValue || !dateExamValue || !timeExamValue || passageOk === false){
         return 'Please fill in all the required fields.';
     }
     if (Number(inputTotalValue) > parseInt(inputTotal.getAttribute('max')) || Number(inputTotalValue) < parseInt(inputTotal.getAttribute('min'))) {
@@ -230,14 +321,16 @@ function validateInputs() {
          return 'You cannot set previous date. Please choose a valid date';
 }
     if (timeExamValue >= '18:00' || timeExamValue < '06:00') {
-         console.log('timeExamValue:', timeExamValue);
+       
     return 'School is closed by that time. Choose a reasonable time';
    
 }
+     if(valueGreater === false){
+        return 'The total input must be lower than the number shown to student by 10 try again'
+     }
 
     return true; // Validation passed
 }
-console.log('fuck')
 /**
  * Handles the logic for creating a new exam configuration.
  */
@@ -257,7 +350,9 @@ async function handleCreateNewExam() {
         classes_student: selectedClass.value,
         seconds_quiz: timeSelected.value,
         date_exam: examDate.value,
-        time_exam: examTime.value
+        time_exam: examTime.value,
+        passage_workings: toGetPassageInputs(),
+        is_open: false
     };
 
     try {
@@ -281,7 +376,8 @@ async function handleCreateNewExam() {
             classSelected: newConfig.classes_student,
             secondsQuiz: newConfig.seconds_quiz,
             dateExam: newConfig.date_exam,
-            timeExam: newConfig.time_exam
+            timeExam: newConfig.time_exam,
+            passageInput: newConfig.passage_workings
         };
         sessionStorage.setItem('storeResult', JSON.stringify(sessionConfig));
         
@@ -296,9 +392,116 @@ async function handleCreateNewExam() {
     }
 }
 
-/**
- * Handles the logic for updating an existing exam configuration.
- */
+let passageLabelEl; // persist reference
+
+function tohandlePassage() {
+  const passageTrue = document.getElementById('Yes');
+  const passageFalse = document.getElementById('No');
+
+  if (passageTrue.checked) {
+    if (!passageLabelEl) {
+      passageLabelEl = document.createElement('div');
+      passageLabelEl.innerHTML = `
+        <div class="numberOfPassages">Choose the number of passage:
+          <label class='passage'>1</label>
+          <input type="radio" name="NumberOfPassage" value="1"/>
+          <label class='passage'>2</label>
+          <input type="radio" name="NumberOfPassage" value="2"/>
+          <label class='passage'>3</label>
+          <input type="radio" name="NumberOfPassage" value="3"/>
+          <label class='passage'>4</label>
+          <input type="radio" name="NumberOfPassage" value="4"/>
+          <label class='passage'>5</label>
+          <input type="radio" name="NumberOfPassage" value="5"/>
+        </div>
+        <div id="passageInputs"></div>
+      `;
+      passageFalse.insertAdjacentElement('afterend', passageLabelEl);
+
+      // ✅ attach listeners AFTER radios are in DOM
+      passageLabelEl.querySelectorAll('input[name="NumberOfPassage"]').forEach(radio => {
+        radio.addEventListener("change", () => {
+          const selectedPassage = passageLabelEl.querySelector('input[name="NumberOfPassage"]:checked');
+          if (selectedPassage) {
+            handleNumberOfPassageChoosen(selectedPassage.value);
+          }
+        });
+      });
+    }
+  } else {
+    if (passageLabelEl) {
+      passageLabelEl.remove();
+      passageLabelEl = null;
+    }
+  }
+}
+
+function handleNumberOfPassageChoosen(labelChoosen) {
+  const inputsContainer = document.getElementById("passageInputs");
+  inputsContainer.innerHTML = ""; // clear old inputs
+  
+
+  for (let i = 1; i <= labelChoosen; i++) {
+    const div = document.createElement("div");
+    div.innerHTML = `
+      <label class='passage' style="margin-top: 1.5rem; display: block">Passage ${i}</label>
+      <input type="number" class="passageNumber" placeholder="Enter how many questions you want to set for passage${i}"/>
+     <label class="CheckCom">Is it compulsory?</label>
+     <label class="CheckCom">
+     <input type="radio" class="YesCom" name="comp${i}" value="yes"/> Yes
+     </label>
+    <label class="CheckCom">
+    <input type="radio" class="NoCom" name="comp${i}" value="no"/> No
+</label>
+
+
+    `;   
+     inputsContainer.appendChild(div);
+  }
+   
+  let allInput = document.querySelectorAll('.passageNumber');
+  allInput.forEach((input, index) => {
+  input.addEventListener('input', () => {
+    passageInput[index] = Number(input.value) || 0;
+  });
+});
+}
+function toGetPassageInputs() {
+  const allPassageNumbers = document.querySelectorAll('.passageNumber');
+  const input_working = [];
+
+  allPassageNumbers.forEach((input, index) => {
+    const yesRadio = document.querySelector(`input[name="comp${index+1}"][value="yes"]`);
+    const noRadio = document.querySelector(`input[name="comp${index+1}"][value="no"]`);
+
+    input_working.push({
+      value: Number(input.value) || 0,
+      compulsory: yesRadio.checked ? true : false
+    });
+  });
+
+  return input_working;
+}
+
+
+function todetermineOpen(){
+    const isopenEl = document.getElementById('open');
+    const isClosedEl = document.getElementById('close');
+    if(isopenEl.checked){
+        isOpen = true
+    }
+    else{
+        isOpen = false
+    }
+    return isOpen
+}
+
+
+// attach listeners to Yes/No
+passageTrue.addEventListener('change', tohandlePassage);
+passageFalse.addEventListener('change', tohandlePassage);
+
+
 async function handleUpdateExam() {
     const validationResult = validateInputs();
     if (validationResult !== true) {
@@ -320,7 +523,9 @@ async function handleUpdateExam() {
         seconds_quiz: timeSelected.value,
         date_exam:  examDate.value,
         time_exam:  examTime.value,
-        updated_at: new Date().toISOString() // Update timestamp
+        passage_workings: toGetPassageInputs(),
+        updated_at: new Date().toISOString(), // Update timestamp
+        is_open: todetermineOpen()
     };
 
     try {
@@ -343,7 +548,8 @@ async function handleUpdateExam() {
             classSelected: updatedConfig.classes_student,
             secondsQuiz: updatedConfig.seconds_quiz,
             dateExam: updatedConfig.date_exam,
-            timeExam: updatedConfig.time_exam
+            timeExam: updatedConfig.time_exam,
+            passageInput: updatedConfig.passage_workings
         };
         sessionStorage.setItem('storeResult', JSON.stringify(sessionConfig));
         
@@ -390,7 +596,7 @@ async function findConfigInSupabase(selectedClassByUser, selectedSubjectUser) {
 
 function redirectToSubjectPage(subject, selectedClass) {
     if (subject && selectedClass) {
-        location.href = `../RealStudentQuestion/RealStudentQuestion?class=${selectedClass}&subject=${subject}`;
+        location.href = `/RealStudentQuestion/RealStudentQuestion.html?class=${selectedClass}&subject=${subject}`;
     } else {
         location.href = 'ErrorPage/Error404.html';
     }
@@ -417,6 +623,4 @@ function successSignal(message) {
     setTimeout(() => {
         alertEl.style.display = 'none';
     }, 6000);
-
 }
-
