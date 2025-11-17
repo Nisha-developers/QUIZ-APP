@@ -33,6 +33,7 @@ const juniorSubject = ["Mathematics","English","Basic science","Basic tech","Bus
     // Get the class from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const selectedClass = urlParams.get("class");
+    document.title = `Student Details for ${selectedClass}`;
 
     const classes = [];
     const jssBranches = ['agu', 'ayam', 'barama', 'damisa', 'ekpe', 'ekun'];
@@ -475,11 +476,11 @@ const juniorSubject = ["Mathematics","English","Basic science","Basic tech","Bus
                                 </tr>
                                 <tr>
                                     <td><strong>Overall Grade:</strong></td>
-                                    <td>${getGrade(average)}</td>
+                                    <td>${getRemark(average).text}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Remark:</strong></td>
-                                    <td>${remark.text}</td>
+                                    <td>${getRemarks(average)}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Class Position:</strong></td>
@@ -506,6 +507,112 @@ const juniorSubject = ["Mathematics","English","Basic science","Basic tech","Bus
             modal.remove();
         }
     }
+    function getRemarks(score) {
+  switch (score) {
+    case 1: return "This performance is extremely poor. You must go back to the basics and start afresh. Dedicate yourself to consistent learning.";
+    case 2: return "This result is very disappointing. You need to focus, study more seriously, and seek guidance.";
+    case 3: return "A very low score. It shows a lack of preparation. Please commit to improving your understanding.";
+    case 4: return "You're far behind. Attend classes, revise your notes, and ask for help when needed.";
+    case 5: return "Poor performance. You're capable of better if you apply yourself and stay disciplined.";
+    case 6: return "Weak result. Take time to review topics daily and test yourself regularly.";
+    case 7: return "This score is not encouraging. Make studying a daily habit, and improvement will follow.";
+    case 8: return "You’re not yet on track. Don’t be discouraged — seek help, stay motivated, and push forward.";
+    case 9: return "Still very low. Set a study goal and stick to a routine to see growth.";
+    case 10: return "Barely making progress. With commitment, you can do far better. Start today.";
+    case 11: return "A wake-up call. You need to change your academic habits to succeed.";
+    case 12: return "Below basic expectations. Invest more time in your studies.";
+    case 13: return "Not impressive. Seek clarity on the areas where you're struggling.";
+    case 14: return "You can improve. Join group discussions and ask questions.";
+    case 15: return "It’s a start. But far from acceptable. Step up your preparation.";
+    case 16: return "You're trying, but it’s not enough. Stay consistent and avoid distractions.";
+    case 17: return "Still poor. Don’t lose hope — focus and persistence will help.";
+    case 18: return "There’s room for improvement. Study smarter and with purpose.";
+    case 19: return "Your effort must increase. Don’t settle for less.";
+    case 20: return "Slight improvement, but far from good. You must put in the work.";
+    case 21: return "Your journey to success begins with discipline. Step it up.";
+    case 22: return "Some progress, but not enough. You need more consistency.";
+    case 23: return "You’re improving slightly. Stay on track and build momentum.";
+    case 24: return "There's potential here. Focus on your weaknesses.";
+    case 25: return "You’re at a quarter of full marks. Try to double your effort.";
+    case 26: return "Basic understanding is forming. Keep going.";
+    case 27: return "Don’t stop now. Your learning curve is just beginning.";
+    case 28: return "You’re making slight progress. Stay consistent.";
+    case 29: return "Close to a pass mark. Let’s build on this.";
+    case 30: return "You’re starting to get it. Don’t relax.";
+    case 31: return "A little more effort and you’ll rise higher.";
+    case 32: return "Push a little harder. The results will follow.";
+    case 33: return "Some understanding is evident. Keep practicing.";
+    case 34: return "You’re slowly getting there. Don’t give up.";
+    case 35: return "You’ve shown some effort. Make it more regular.";
+    case 36: return "Understanding is forming. Build on it.";
+    case 37: return "Not the worst, but far from excellent. You can do more.";
+    case 38: return "You’re trying. Aim higher.";
+    case 39: return "Almost halfway. Let’s go beyond that.";
+    case 40: return "You’ve reached the basic pass. But you’re capable of more.";
+    case 41: return "Fair start. Build on your current momentum.";
+    case 42: return "You’re beginning to show understanding. Keep it up.";
+    case 43: return "You’re not far from average. Keep pushing.";
+    case 44: return "Your work is showing some improvement.";
+    case 45: return "You're close to average. Increase your effort.";
+    case 46: return "Almost there. Let’s aim for higher marks.";
+    case 47: return "You’re picking up. Don’t stop now.";
+    case 48: return "A better result, but keep pushing.";
+    case 49: return "Just one mark away from average. You can do it.";
+    case 50: return "You’ve hit average. Now aim for greatness.";
+    case 51: return "You’re doing okay. Let’s aim higher.";
+    case 52: return "Fair understanding. Build on it.";
+    case 53: return "This is encouraging. Stay consistent.";
+    case 54: return "You’re above average. Keep progressing.";
+    case 55: return "You’ve done well. Let’s do even better.";
+    case 56: return "Showing signs of mastery. Keep practicing.";
+    case 57: return "Decent work. Let’s raise the bar.";
+    case 58: return "Your effort is paying off.";
+    case 59: return "Almost very good. A little more work to go.";
+    case 60: return "This is a good position. Don’t relax now.";
+    case 61: return "You’ve crossed into good territory.";
+    case 62: return "This is commendable. Stay sharp.";
+    case 63: return "Solid performance. Be proud.";
+    case 64: return "Consistency is key. Keep going.";
+    case 65: return "You’ve worked hard. Maintain the pace.";
+    case 66: return "Great effort! Let’s see you reach 70+.";
+    case 67: return "Doing well. Don’t slow down.";
+    case 68: return "Your performance is above average. Excellent job.";
+    case 69: return "Keep striving for excellence.";
+    case 70: return "Good job! You’re well above average.";
+    case 71: return "Strong performance. Keep it up.";
+    case 72: return "You’ve shown great commitment.";
+    case 73: return "This is impressive. Continue this effort.";
+    case 74: return "You’re doing very well. Let’s go higher.";
+    case 75: return "Excellent work! Stay on this path.";
+    case 76: return "Remarkable performance. Aim even higher.";
+    case 77: return "You’re on fire! Keep it up.";
+    case 78: return "Very strong. You’ve been working hard.";
+    case 79: return "Excellent! Push to break into the 80s.";
+    case 80: return "Great work! You’re among the best.";
+    case 81: return "Well done. Keep excelling.";
+    case 82: return "Fantastic work. Stay humble and continue.";
+    case 83: return "Very impressive. Keep setting the standard.";
+    case 84: return "You're mastering the subject.";
+    case 85: return "Outstanding! A little more to perfection.";
+    case 86: return "Great understanding. Aim for top 10%.";
+    case 87: return "Truly commendable. You’re on track.";
+    case 88: return "Almost flawless. Keep learning.";
+    case 89: return "Close to perfect! Keep pushing.";
+    case 90: return "Excellent achievement. You’re a top student.";
+    case 91: return "Phenomenal job. Keep your standards high.";
+    case 92: return "Almost perfect. Maintain your efforts.";
+    case 93: return "Brilliant! You’ve mastered the concepts.";
+    case 94: return "Fantastic result. Stay focused.";
+    case 95: return "Amazing! One of the best.";
+    case 96: return "Exceptional! Continue leading the way.";
+    case 97: return "You’re an academic star. Keep it shining.";
+    case 98: return "Incredible! You’ve done excellently.";
+    case 99: return "Just one mark from perfection. Well done!";
+    case 100: return "Perfect score! This is a rare achievement and deserves the highest praise. Keep being a role model.";
+    default: return "Invalid score. Please enter a value between 1 and 100.";
+  }
+}
+
 
     function printIndividualResult() {
         const modal = document.getElementById('individualResultModal');
@@ -766,20 +873,24 @@ const juniorSubject = ["Mathematics","English","Basic science","Basic tech","Bus
     function getRemark(average) {
         if (average === 0) return { text: '-', class: '' };
         if (average >= 80) return { text: 'Excellent', class: 'excellent' };
-        if (average >= 70) return { text: 'Good', class: 'good' };
-        if (average >= 60) return { text: 'Fair', class: 'fair' };
+        if (average >= 70) return { text: 'Very good', class: 'Very good' };
+        if (average >= 65) return { text: 'Good', class: 'Good' };
+        if (average >= 50)  return{ text: 'Fair', class: 'Fair' };
         return { text: 'Poor', class: 'poor' };
     }
 
     function getGrade(score) {
         if (score === 'N/A' || score === null || score === '' || isNaN(score)) return 'N/A';
         const percentage = parseFloat(score);
-        if (percentage >= 90) return 'A+';
-        if (percentage >= 80) return 'A';
-        if (percentage >= 70) return 'B';
-        if (percentage >= 60) return 'C';
-        if (percentage >= 50) return 'D';
-        return 'F';
+        if (percentage >= 80) return 'A1';
+        if (percentage >= 70) return 'B2';
+        if (percentage >= 65) return 'B3';
+        if (percentage >= 60) return 'C4';
+         if (percentage >= 55) return 'C5';
+        if (percentage >= 50) return 'C6';
+        if(percentage >= 45)  return 'D7';
+         if(percentage >= 40)  return 'E8'
+        return 'F9';
     }
 
     function getPositionSuffix(position) {
