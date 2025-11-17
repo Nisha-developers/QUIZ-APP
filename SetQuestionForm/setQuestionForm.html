@@ -19,18 +19,24 @@
 <h1>Setting School Examination</h1>
 <form action="">
     <label for="totalQuestion">Total Question set</label>
-    <input type="number" max="600" min="10" class="totalQuestion" id="totalQuestion">
+    <input type="number" max="600" min="10" class="totalQuestion" id="totalQuestion" required>
     <label for="questionShown">Questions to be displayed Randomly to the student</label>
-    <input type="number" max="250" min="5" class="shownQuestion" id="questionShown">
+    <input type="number" max="250" min="5" class="shownQuestion" id="questionShown" required>
     <label for="images">How many images will be set for the Question</label> 
     <input type="number" max="100" min="0" class="" id="images">
       <label for="seconds">Exam Time in minutes</label>
-    <input type="number" id="seconds">
+    <input type="number" id="seconds" required>
      <label for="DateExam">Date of Examination</label>
-    <input type="date" id="DateExam">
+    <input type="date" id="DateExam" required>
     <label for="timeExam">Time of Exam</label>
-     <input type="time" id="timeExam">
-
+     <input type="time" id="timeExam" required>
+     <label  id="top-passage">Set Passage?</label>
+     <div class="choice">
+     <label for="Yes" class="passage">Yes</label>
+     <input type="radio" name="passage" id="Yes">
+     <label for="No" class="passage">No</label>
+     <input type="radio" name="passage" id="No" checked>
+</div>
       <select name="" id="selectedClass">
         <option value="">Choose the class you want to set question for</option>
         <option value="jss1">JSS1</option>
@@ -70,11 +76,9 @@
         <option value="Cisco">Cisco</option>
         <option value="Guidance and Counseling">Guidance and Counseling </option>
     </select>
-  
-  
     <div class="alert" style="display: none;"></div>
 </form>
-<button id="submit">Set Student Exam</button>
+ <button id="submit" type="submit">Set Student Exam</button>
 <button id="continue">Continue Setting Exam Question</button>
 </main>
 
