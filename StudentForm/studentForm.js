@@ -92,7 +92,7 @@ if (!selectedClass || !classes.includes(selectedClass)) {
         electiveSubjects = ["Data Processing", "Marketing", "Printing and Decoration"];
     } else if (selectedClass.includes('EKPE')) {
         compulsorySubjects = [
-            "Mathematics", "English", "Lit in English", "Christian Religious Studies",
+            "Mathematics", "English", "Literature in English", "Christian Religious Studies",
             "Economics", "Civic education", "Biology", "Cisco"
         ];
         electiveSubjects = [
