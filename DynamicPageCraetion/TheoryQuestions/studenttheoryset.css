@@ -1,0 +1,180 @@
+
+        body {
+            color: #eee;
+            background-color: black;
+            font-family: Arial, sans-serif;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        header h1 {
+            font-size: 25px;
+        }
+         .header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+            text-align: right;
+        }
+        .remark{
+            margin-top: 2rem !important;
+            padding-left: 2rem;
+            font-size: 24px;
+            font-weight: bold
+        }
+        label{
+            font-size: 1.5rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        div.info{
+            display: flex;
+            flex-direction: column;
+        }
+        textarea, .editor{
+            display: block;
+            margin: 2rem auto;
+            max-width: 1000px;
+            overflow-y: scroll;
+            width: 90%;
+            height: 70vh;
+             font-size: 18px;
+            padding: 1.5rem 2rem;
+            background-color: transparent;
+            color: #eee;
+            border: 2px solid blue;
+            border-radius: 5px;
+        }
+         .editor::-webkit-scrollbar,textarea::-webkit-scrollbar{
+          background-color: #eee;
+          width: 10px;
+        }
+        textarea::-webkit-scrollbar-thumb,  .editor::-webkit-scrollbar-thumb{
+          background-color: blue;
+          width: 5px;
+          border-radius: 31rem;
+        }
+        textarea::-webkit-scrollbar-corner,
+       .editor::-webkit-scrollbar-corner{
+          background-color: green;
+        }
+        input[type='file']{
+          display: block;
+          max-width: 400px;
+          width: 90%;
+          margin-inline: auto;
+          margin-bottom: 2rem;
+          border: 0.5px solid #eee;
+          padding: 0.5rem 4rem;
+        }
+        div.Explain{
+          color: gray;
+          transform: translate(14rem, 16rem);
+        }
+        .question-content pre{
+        overflow-wrap: break-word;  /* modern */
+        word-wrap: break-word;      /* for older browsers, optional */
+        white-space: pre-wrap;      /* very important for <pre> */
+        }
+        div.question-actions{
+          margin-bottom: 2rem;
+        }
+        .btn-edit, .btn-delete{
+          padding-block: 0.5rem;
+          padding-inline: 1.5rem;
+          cursor: pointer;
+         background-color: transparent;
+        }
+        .btn-delete{
+          border: 1px solid red;
+          color: red;
+         }
+          .btn-edit{
+            border: 1px solid orange;
+            color: orange;
+          }
+                 
+       #questionsDisplay{
+          padding: 2rem 4rem;
+          max-width: 1200px;
+          width: 90%;
+          margin-inline: auto;
+          margin-bottom: 1.5rem;
+          font-size: 18px;
+          box-shadow: 2px 2px 18px blue;
+        }
+         textarea:focus{
+          outline: none;
+          border: 2px solid blue !important;
+         }
+        .submit{
+            margin-inline: auto;
+            display: block;
+            height: 35px;
+            width: 250px;
+            background-color: transparent;
+            border: 1px solid blue;
+            color: blue;
+            margin-bottom: 2rem;
+            border-radius: 2rem;
+        }
+        .submit:hover{
+            border-color: #eee;
+            color: #eee;
+            cursor: pointer;
+        }
+div.logo-con {
+            display: flex;
+            column-gap: 0.5rem;
+            align-items: center;
+        }
+        header img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            animation: rotate 8s linear infinite;
+        }
+ header {
+            box-shadow: 2px 2px 10px blue;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 5px;
+            height: 70px;
+            padding: 0 15px;
+        }
+        div.showAlert{
+       
+         display: none;
+        }
+        .danger{
+              padding-block: 0.5rem;
+         max-width: 500px;
+         width: 70%;
+         margin-bottom: 2rem;
+         border-radius: 0.5rem;
+        text-align: center;
+         margin-inline: auto;
+             border: 1px solid red;
+             color: red;
+        }
+        .success{
+              padding-block: 0.5rem;
+         max-width: 500px;
+         width: 70%;
+         margin-bottom: 2rem;
+         border-radius: 0.5rem;
+        text-align: center;
+         margin-inline: auto;
+            border: 1px solid green;
+            color: green;
+        }
+        div.typeImage{
+          text-align: center;
+          font-size: 30px;
+          font-weight: bold;
+         margin-block: 1.5rem;
+        }
+    
