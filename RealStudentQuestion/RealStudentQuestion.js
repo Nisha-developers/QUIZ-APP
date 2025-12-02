@@ -68,7 +68,7 @@ async function loadExamConfig() {
         }
     } else {
         showAlert('No examination configuration found. Redirecting...', 'danger');
-        window.location.href = '/ErrorPage/Error404.html'; 
+        window.location.href = '/QUIZ-APP/ErrorPage/Error404.html'; 
     }
 }
 
@@ -1313,4 +1313,5 @@ const toBase64 = file => new Promise((resolve, reject) => {
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result);
     reader.onerror = error => reject(error);
+
 });
