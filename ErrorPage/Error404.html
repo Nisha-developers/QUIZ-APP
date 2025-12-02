@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="../Favicon_logo-removebg-preview.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error 404</title>
+    <style>
+        div.error-container{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            height: 95vh;
+        }
+        div.realError{
+            color: red;
+            font-size: clamp(3rem, 6vw, 10rem);
+            font-weight: 900;
+            text-align: center;
+        }
+        a{
+            text-align: center;
+            background-color: red;
+            color: white;
+            margin-block: 30px;
+            margin-inline: auto;
+            padding: 12px;
+            width: 200px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.4s ease-in-out;
+        }
+        a:hover, a:active{
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="realError">Error 404. Page Not found. Please Check and Try again</div>
+        <a href="../index.html">Go back to homepage</a>
+    </div>
+</body>
+</html>

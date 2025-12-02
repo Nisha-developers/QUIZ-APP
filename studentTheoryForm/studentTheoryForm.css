@@ -1,0 +1,155 @@
+ *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+         color: #eee;
+            background-color: black;
+        }
+        header{
+            box-shadow: 2px 2px 10px blue; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 5px;
+            height: 70px;
+            padding-left: 15px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background-color: black;
+        }
+        header img{
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            animation: rotate 8s linear infinite;
+        }
+        div.logo-con{
+            display: flex;
+            column-gap: 0.5rem;
+            align-items: center;
+        }
+        h1.title{
+            padding-right: 25px;
+        }
+        @keyframes rotate {
+            from{
+                transform: rotate(0deg);
+            }
+            to{
+                transform: rotate(360deg);
+            }
+        }
+        header h1{
+            font-size: 25px;
+        }
+        main{
+            margin-top: 8rem;
+        }
+        main h1{
+            text-align: center;
+            margin: 20px;
+        }
+        form{
+            box-shadow: 2px 2px 10px blue;
+            padding: 30px;
+            max-width: 800px;
+            width: 90%;
+            margin: auto;
+            border-radius: 10px;
+        }
+        label:not(.radio-label), input:not([type="radio"]), select{
+            display: block;
+            width: 100%;
+            background-color: black;
+            color: #eee;
+            padding-left: 15px;
+        } 
+        select:last-of-type{
+            margin-top: 2rem;
+        }
+        label:focus, input:focus{
+            background-color: white;
+            color: black;
+        }
+        input:not([type="radio"]){
+            margin-bottom: 2rem;
+            margin-top: 0.5rem;
+            height: 35px;
+            border: 1px solid blue;
+            border-radius: 20px;
+        } 
+        select{
+            height: 35px;
+            cursor: pointer;
+            border: 1px solid blue;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+        }
+        label{
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+        }
+        .radio-group{
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-left: 15px;
+        }
+        .radio-label{
+            display: inline;
+            width: auto;
+            padding-left: 0;
+        }
+        input[type='radio']{
+            cursor: pointer;
+            width: auto;
+            margin: 0;
+        }
+        button{
+            display: block;
+            height: 35px;
+            margin: 2rem auto;
+            padding: 0.4rem;
+            border-radius: 10px;
+            border: 1px solid blue;
+            color: blue;
+            background-color: black;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            min-width: 200px;
+        }
+        button:hover{
+            border: 1px solid white;
+            background-color: blue;
+            color: white;
+            transform: scale(1.05);
+        }
+        div.alert{
+            color: green;
+            border: 1px solid green;
+            border-radius: 15px;
+            margin-top: 20px;
+            padding: 10px;
+        }
+        div.danger{
+            color: red;
+            border: 1px solid red;
+            border-radius: 15px;
+            margin-top: 20px;
+            padding: 10px;
+        }
+
+        @media (max-width: 768px) {
+            header h1{
+                font-size: 18px;
+            }
+            form{
+                padding: 20px;
+            }
+        }
