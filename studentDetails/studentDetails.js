@@ -53,7 +53,7 @@ const juniorSubject = ["Mathematics","English","Basic science","Basic tech","Bus
         });
     }
     if (!selectedClass || !classes.includes(selectedClass)) {
-      location.href = '../ErrorPage/Error404.html';
+      location.href = '/QUIZ-APP/ErrorPage/Error404.html';
     }
  if (selectedClass.includes('JSS')) {
     allSubjects  = juniorSubject;
@@ -961,4 +961,5 @@ const juniorSubject = ["Mathematics","English","Basic science","Basic tech","Bus
     window.getStudentResults = getStudentResults;
 
     initializeApp();
+
 });
