@@ -53,7 +53,7 @@ h1Title.textContent = `Welcome to ${selectedClass || 'Not chosen'}`
 
 if (!selectedClass || !classes.includes(selectedClass)) {
     
-         location.href = '../ErrorPage/Error404.html';
+         location.href = '/QUIZ-APP/ErrorPage/Error404.html';
  }
  else {
     // Define subject groups for mutual exclusion
@@ -296,4 +296,5 @@ function showMessage(msg, isError = false) {
         newEl.textContent = '';
         messageCon.classList.remove('shake');
     }, 5000);
+
 }
