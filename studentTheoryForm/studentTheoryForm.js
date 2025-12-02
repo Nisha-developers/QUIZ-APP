@@ -429,7 +429,7 @@ function redirectToTheoryQuestionPage(subject, classSelected) {
     // Redirect to your theory question setting page
     location.href = `/QUIZ-APP/TheoryQuestions/TheoryQuestions.html?class=${classSelected}&subject=${subject}`;
   } else {
-    location.href = '/ErrorPage/Error404.html';
+    location.href = '/QUIZ-APP/ErrorPage/Error404.html';
   }
 }
 
@@ -453,3 +453,4 @@ function showSuccessAlert(message) {
   }, 6000);
 
 }
+
