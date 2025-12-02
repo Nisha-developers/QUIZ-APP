@@ -427,7 +427,7 @@ function getExamOpenStatus() {
 function redirectToTheoryQuestionPage(subject, classSelected) {
   if (subject && classSelected) {
     // Redirect to your theory question setting page
-    location.href = `/TheoryQuestions/TheoryQuestions.html?class=${classSelected}&subject=${subject}`;
+    location.href = `/QUIZ-APP/TheoryQuestions/TheoryQuestions.html?class=${classSelected}&subject=${subject}`;
   } else {
     location.href = '/ErrorPage/Error404.html';
   }
@@ -451,4 +451,5 @@ function showSuccessAlert(message) {
   setTimeout(() => {
     alertBox.style.display = 'none';
   }, 6000);
+
 }
