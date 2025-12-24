@@ -6,7 +6,7 @@
         
         body {
             background-color: black;
-             color: #eee;
+             color:  #c9d4f8;
         }
         
         a {
@@ -25,7 +25,7 @@
             box-shadow: 2px 2px 8px blue;
             background-color: black;
             position: fixed;
-            height: 100vh;
+            height: 100%;
             top: 0;
             left: 0;
             width: 16%;
@@ -65,7 +65,7 @@
             font-weight: bold;
             font-size: 25px;
             cursor: pointer;
-            color: #eee;
+            color:  #c9d4f8;
         }
         
         /* Desktop hover behavior */
@@ -126,11 +126,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
+            height: 100vh;
             text-align: center;
-            padding: 20px;
             position: relative;
-            padding-top: 40px;
         }
         
         main div.conatiner::before {
@@ -141,7 +139,7 @@
             background-size: cover;
             content: '';
             width: 100%;
-            height: 115vh;
+            height: 100vh;
             background-blend-mode: multiply;
             background-color: rgba(14, 13, 13, 0.8);
             background-image: url('background.jpg');
@@ -152,14 +150,14 @@
         }
         
         a.links:hover {
-            color: #eee;
+            color:  #c9d4f8;
         }
         
         .headline {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            font-size: 8vw;
+            font-size: clamp(2.1rem, 6vw, 6rem);
             justify-content: center;
             text-align: center;
             text-shadow: 2px 2px 6px blue;
@@ -168,13 +166,13 @@
         }
         
         .lightMode {
-            color: #eee !important;
+            color:  #c9d4f8 !important;
             background-color: #333 !important;
         }
         
         .lightMode:not(.classes) > div:hover {
             color: #333 !important;
-            background-color: #eee !important;
+            background-color:  #c9d4f8 !important;
         }
         
         .headline span {
@@ -190,7 +188,7 @@
             display: none;
         }
         a.questionSet{
-            color: #eee !important;
+            color:  #c9d4f8 !important;
         }
         a.questionSet:hover{
             color: blue !important;
@@ -212,7 +210,7 @@
         
         .container-sec div:hover {
             background-color: #333;
-            color: #eee;
+            color:  #c9d4f8;
         }
         
         div.container-sec i {
@@ -226,7 +224,7 @@
         .container-sec >:nth-child(4), .container-sec >:nth-child(5),
         .container-sec >:nth-child(6) {
             position: relative;
-            background-color: #eee;
+            background-color:  #c9d4f8;
             color: #333;
         }
         
@@ -237,7 +235,7 @@
                 position: absolute;
                 left: 100%;
                 z-index: 20000;
-                background-color: #eee;
+                background-color:  #c9d4f8;
                 color: #333;
             }
              div.senior-class a{
@@ -256,7 +254,7 @@
                 position: absolute;
                 left: 100%;
                 z-index: 20000;
-                background-color: #eee;
+                background-color:  #c9d4f8;
                 color: #333;
             }
              div.senior-class a{
@@ -271,12 +269,11 @@
         .motto {
             font-size: 2rem;
             width: 65%;
-            display: flex;
-            flex-wrap: wrap;
+            word-wrap: break-word;
             gap: 6px;
             margin-bottom: 3rem;
             text-align: center;
-            justify-content: center;
+            margin-inline: auto;
         }
         
         .scroll-content {
@@ -367,7 +364,7 @@
         .container-secs{
             display: none;
             padding: 1rem 0.5rem;
-            background-color: #eee;
+            background-color:  #c9d4f8;
             border-radius: 0.2rem;
             position: absolute;
             width: 100%;
@@ -383,7 +380,7 @@
         }
          .container-secs > div > a:hover{
             background-color: #333;
-            color: #eee;
+            color:  #c9d4f8;
             width:  100%;
             display: block;
             
@@ -401,6 +398,10 @@
         
         footer p {
             text-align: center;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
         }
         /* .senior-class {
     max-height: 0;
@@ -412,18 +413,18 @@
             aside {
                 width: 100%;
                 min-width: 100%;
-                height: 100vh;
+                height: 100%;
                 position: fixed;
                 row-gap: 2rem;
             }
             
             main {
                 margin-left: 0;
-                padding-top: 2rem;
             }
             
             .headline {
-                font-size: 12vw;
+                font-size: clamp(2.1rem, 6vw, 6rem);
+                padding-inline: 1rem;
             }
             
             .motto {
@@ -440,7 +441,7 @@
         
         @media (max-width: 425px) {
             .headline {
-                font-size: 15vw;
+                font-size: clamp(2.1rem, 6vw, 6rem);
                 padding-inline: 0.8rem;
             }
             
