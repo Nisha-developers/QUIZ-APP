@@ -6,6 +6,8 @@
     <link rel="shortcut icon" href="../Favicon_logo-removebg-preview.png" type="image/x-icon">
     <title>Set Questions - Navy Secondary School Abeokuta</title>
     <link rel="stylesheet" href="RealStudentQuestion.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 </head>
 <body>
     <header>
@@ -29,10 +31,7 @@
             <div class="stat-number" id="questionsToShowDisplay">0</div>
             <div class="stat-label">Questions to Show</div>
         </div>
-        <div class="stat-item">
-            <div class="stat-number" id="imagesAllowedDisplay">0</div>
-            <div class="stat-label">Images Allowed</div>
-        </div>
+
         <div class="stat-item">
             <div class="stat-number" id="questionsAddedDisplay">0</div>
             <div class="stat-label">Questions Added</div>
@@ -43,13 +42,20 @@
         <h1>Set Examination Questions</h1>
         
         <div class="form-container">
+             <div id="passagedelete">
             <form id="questionForm">
                 <div class="questionAdd">
                 <label for="questionText">Question Text:</label>
-                <textarea id="questionText" placeholder="Enter your question here..." required></textarea>
-
+                <div id="questionText" contenteditable="true" class="textarea"></div>
+         <div class="image-upload">
+                    <div>
+                    <label for="questionImage">Question Image (Optional):</label>
+                    <input type="file" id="questionImage" accept="image/*">
+                    </div>
+            
+                </div>
                 <label>Answer Options:</label>
-                <div class="options-container">
+                <!-- <div class="options-container">
                     <div class="option-group">
                         <label for="optionA">Option A:</label>
                         <input type="text" id="optionA" placeholder="Option A" required>
@@ -66,8 +72,55 @@
                         <label for="optionD">Option D:</label>
                         <input type="text" id="optionD" placeholder="Option D" required>
                     </div>
-                </div>
+                </div> -->
+<div class="options-container">
 
+    <div class="option-group">
+        <label>Option A:</label>
+        <div 
+            class="option-editor" 
+            id="optionA" 
+            contenteditable="true" 
+            data-name="optionA"
+            placeholder="Type option A here...">
+        </div>
+    </div>
+
+    <div class="option-group">
+        <label>Option B:</label>
+        <div 
+            class="option-editor" 
+            id="optionB" 
+            contenteditable="true" 
+            data-name="optionB"
+            placeholder="Type option B here...">
+        </div>
+    </div>
+
+    <div class="option-group">
+        <label>Option C:</label>
+        <div 
+            class="option-editor" 
+            id="optionC" 
+            contenteditable="true" 
+            data-name="optionC"
+            placeholder="Type option C here...">
+        </div>
+    </div>
+
+    <div class="option-group">
+        <label>Option D:</label>
+        <div 
+            class="option-editor" 
+            id="optionD" 
+            contenteditable="true" 
+            data-name="optionD"
+            placeholder="Type option D here...">
+        </div>
+    </div>
+
+</div>
+<div class="answer-cont">
                 <div class="answer-section">
                     <div>
                     <label for="correctAnswer">Correct Answer:</label>
@@ -80,13 +133,11 @@
                     </select>
                     </div>
                 </div>
-                </div>
+       <div class="inputContainer"></div>
+       </div>
 
-                <div class="image-upload">
-                    <label for="questionImage">Question Image (Optional):</label>
-                    <input type="file" id="questionImage" accept="image/*" disabled>
-                    <img id="imagePreview" class="image-preview" alt="Question Image Preview">
                 </div>
+               </div>
                 <div class="alert" id="alertMessage"></div>
                 <div class="warning" id="warningMessage" style="display: none;"></div>
 
