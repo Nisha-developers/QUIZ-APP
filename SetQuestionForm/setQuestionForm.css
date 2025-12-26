@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 body{
-    color: #eee;
+    color:  #c9d4f8;
     background-color: black;
 }
 header{
@@ -66,7 +66,7 @@ form{
     display: block;
     width: 100%;
     background-color: black;
-    color: #eee;
+    color:  #c9d4f8;
     padding-left: 15px;
  
 } 
@@ -147,7 +147,7 @@ div.numberOfPassages{
     margin-block: 10px;
     padding-left: 15px;
 }
-label.CheckCom{
+label.CheckCom,label.CheckImg{
     display: inline;
 }
 input[type='radio']{
@@ -155,7 +155,7 @@ input[type='radio']{
 }
 select:disabled{
     border: none;
-    color: #eee;
+    color: #c9d4f8;
     text-shadow: 8px 8px 27px blue;
     margin: 0;
     font-size: 23px;
@@ -164,4 +164,7 @@ select:disabled{
   -moz-appearance: none;    /* Firefox */
   appearance: none;  
   cursor: not-allowed;
+}
+.CheckComs{
+    display: block;
 }
