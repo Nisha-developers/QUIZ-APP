@@ -1,7 +1,7 @@
- import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-  const supabaseUrl = 'https://cnnpcbtjlgnwzijmeijj.supabase.co';
- const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNubnBjYnRqbGdud3ppam1laWpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMwMzYwNTEsImV4cCI6MjA2ODYxMjA1MX0.XUAfi5Eh3sgc4rYp7K3eOE0q6tfqUHYpXMFFze4Ev0w';
-  const supabase = createClient(supabaseUrl, supabaseKey);
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const supabaseUrl = 'https://cnnpcbtjlgnwzijmeijj.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNubnBjYnRqbGdud3ppam1laWpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMwMzYwNTEsImV4cCI6MjA2ODYxMjA1MX0.XUAfi5Eh3sgc4rYp7K3eOE0q6tfqUHYpXMFFze4Ev0w';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Get the elements
 const inputTotal = document.querySelector('.totalQuestion');
@@ -9,7 +9,6 @@ const shownQuestionToStudent = document.querySelector('.shownQuestion');
 const seletedSubject = document.getElementById('selectSubject');
 const selectedClass = document.querySelector('#selectedClass');
 const timeSelected = document.getElementById('seconds');
-const imageSet = document.getElementById('images');
 const submitExam = document.querySelector('#submit');
 const alertEl = document.querySelector('.alert');
 const examTime = document.getElementById('timeExam');
@@ -114,7 +113,6 @@ submitExam.addEventListener('click', async () => {
     // Load data into form
     inputTotal.value = existingConfig.total_score;
     shownQuestionToStudent.value = existingConfig.questions_shown_to_student;
-    imageSet.value = existingConfig.image_set;
     timeSelected.value = existingConfig.seconds_quiz;
     examDate.value = existingConfig.date_exam;
     examTime.value = existingConfig.time_exam;
@@ -228,7 +226,6 @@ continueButton.addEventListener('click', async () => {
                 subjectSelected: existingConfig.subject_selected,
                 totalScore: existingConfig.total_score,
                 questionshowntostudent: existingConfig.questions_shown_to_student,
-                imageset: existingConfig.image_set,
                 classSelected: existingConfig.classes_student,
                 secondsQuiz: existingConfig.seconds_quiz,
                 dateExam: existingConfig.date_exam,
@@ -255,7 +252,6 @@ continueButton.addEventListener('click', async () => {
 function validateInputs() {
     const inputTotalValue = inputTotal.value;
     const shownQuestionToStudentValue = shownQuestionToStudent.value;
-    const imagesValue = imageSet.value;
     const selectedClassValue = selectedClass.value;
     const timeSelectedValue = timeSelected.value;
     const dateExamValue = examDate.value;
@@ -308,9 +304,6 @@ function validateInputs() {
     if (Number(shownQuestionToStudentValue) >= Number(inputTotalValue)) {
         return 'Questions shown to student cannot be greater  OR equal than the total questions.';
     }
-    if (Number(imagesValue) > Number(shownQuestionToStudentValue)) {
-        return 'Image questions cannot be greater than the questions shown to the student.';
-    }
     if(Number(timeSelectedValue) > 360){
         return 'You cannot set time for more than six hours. Please choose a reasonable time';
     }
@@ -325,6 +318,7 @@ function validateInputs() {
     return 'School is closed by that time. Choose a reasonable time';
    
 }
+validationOfpassageInput()
      if(valueGreater === false){
         return 'The total input must be lower than the number shown to student by 10 try again'
      }
@@ -345,7 +339,6 @@ async function handleCreateNewExam() {
         total_score: inputTotal.value,
         questions_shown_to_student: shownQuestionToStudent.value,
         subject_selected: seletedSubject.value,
-        image_set: imageSet.value || "0", // Default to 0 if empty
         created_at: new Date().toISOString(), // Timestamp for good practice
         classes_student: selectedClass.value,
         seconds_quiz: timeSelected.value,
@@ -372,7 +365,6 @@ async function handleCreateNewExam() {
             subjectSelected: newConfig.subject_selected,
             totalScore: newConfig.total_score,
             questionshowntostudent: newConfig.questions_shown_to_student,
-            imageset: newConfig.image_set,
             classSelected: newConfig.classes_student,
             secondsQuiz: newConfig.seconds_quiz,
             dateExam: newConfig.date_exam,
@@ -453,7 +445,13 @@ function handleNumberOfPassageChoosen(labelChoosen) {
     <label class="CheckCom">
     <input type="radio" class="NoCom" name="comp${i}" value="no"/> No
 </label>
-
+   <label class="CheckComs">Is image Included</label>
+     <label class="CheckImg">
+     <input type="radio" class="YesCom" name="comps${i}" value="yess"/> Yes
+     </label>
+    <label class="CheckImg">
+    <input type="radio" class="NoCom" name="comps${i}" value="noo"/> No
+</label>
 
     `;   
      inputsContainer.appendChild(div);
@@ -469,18 +467,49 @@ function handleNumberOfPassageChoosen(labelChoosen) {
 function toGetPassageInputs() {
   const allPassageNumbers = document.querySelectorAll('.passageNumber');
   const input_working = [];
+  const input_reference = [];
 
   allPassageNumbers.forEach((input, index) => {
     const yesRadio = document.querySelector(`input[name="comp${index+1}"][value="yes"]`);
+    const includeImageYes = document.querySelector(`input[name="comps${index+1}"][value="yess"]`)
+     const includeImageNo = document.querySelector(`input[name="comps${index+1}"][value="noo"]`)
     const noRadio = document.querySelector(`input[name="comp${index+1}"][value="no"]`);
 
     input_working.push({
       value: Number(input.value) || 0,
-      compulsory: yesRadio.checked ? true : false
+      compulsory: yesRadio.checked ? true : false,
+      addImage: includeImageYes.checked ? true : false
     });
+    input_reference.push({
+    includeImageNos: includeImageNo.checked ? true : false,
+    noradios: noRadio.checked ? true : false
+  })
   });
+  
 
-  return input_working;
+  return [input_working, input_reference];
+}
+function validationOfpassageInput(){
+    let imagechecked;
+    let radiochecked
+    const inputValue = toGetPassageInputs()[0];
+    const secondInputValue = toGetPassageInputs()[1];
+    inputValue.some((val)=>{
+        if(val.value < 2){
+        return 'You cannot input less than two for the passage value'
+}
+if(val.compulsory === false){
+    imagechecked = true;
+}
+if(val.noradios === false){
+    radiochecked = true;
+}
+    })
+    
+   
+  if((imagechecked === true && secondInputValue.includeImageNos === false) || (radiochecked === true &&secondInputValue.noradios === false)){
+    return 'Answer all the input questions'
+  }
 }
 
 
@@ -518,12 +547,11 @@ async function handleUpdateExam() {
         total_score: inputTotal.value,
         questions_shown_to_student: shownQuestionToStudent.value,
         subject_selected: seletedSubject.value,
-        image_set: imageSet.value || "0",
         classes_student: selectedClass.value,
         seconds_quiz: timeSelected.value,
         date_exam:  examDate.value,
         time_exam:  examTime.value,
-        passage_workings: toGetPassageInputs(),
+        passage_workings: toGetPassageInputs()[0],
         updated_at: new Date().toISOString(), // Update timestamp
         is_open: todetermineOpen()
     };
@@ -544,7 +572,6 @@ async function handleUpdateExam() {
             subjectSelected: updatedConfig.subject_selected,
             totalScore: updatedConfig.total_score,
             questionshowntostudent: updatedConfig.questions_shown_to_student,
-            imageset: updatedConfig.image_set,
             classSelected: updatedConfig.classes_student,
             secondsQuiz: updatedConfig.seconds_quiz,
             dateExam: updatedConfig.date_exam,
@@ -596,9 +623,9 @@ async function findConfigInSupabase(selectedClassByUser, selectedSubjectUser) {
 
 function redirectToSubjectPage(subject, selectedClass) {
     if (subject && selectedClass) {
-        location.href = `/QUIZ-APP/RealStudentQuestion/RealStudentQuestion.html?class=${selectedClass}&subject=${subject}`;
+        location.href = `/RealStudentQuestion/RealStudentQuestion.html?class=${selectedClass}&subject=${subject}`;
     } else {
-        location.href = '/QUIZ-APP/ErrorPage/Error404.html';
+        location.href = 'ErrorPage/Error404.html';
     }
 }
 
@@ -623,5 +650,4 @@ function successSignal(message) {
     setTimeout(() => {
         alertEl.style.display = 'none';
     }, 6000);
-
 }
