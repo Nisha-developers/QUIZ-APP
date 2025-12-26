@@ -623,7 +623,7 @@ async function findConfigInSupabase(selectedClassByUser, selectedSubjectUser) {
 
 function redirectToSubjectPage(subject, selectedClass) {
     if (subject && selectedClass) {
-        location.href = `/RealStudentQuestion/RealStudentQuestion.html?class=${selectedClass}&subject=${subject}`;
+        location.href = `/QUIZ-APP/RealStudentQuestion/RealStudentQuestion.html?class=${selectedClass}&subject=${subject}`;
     } else {
         location.href = 'ErrorPage/Error404.html';
     }
@@ -651,3 +651,4 @@ function successSignal(message) {
         alertEl.style.display = 'none';
     }, 6000);
 }
+
