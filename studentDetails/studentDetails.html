@@ -53,7 +53,11 @@
                 <option value="average">Sort by Average Score</option>
             </select>
         </div>
-
+        <div class="controls">
+            <button>Save Theory Result</button>
+            <button>Release Result</button>
+        </div>
+      <h1 class="heading-dashboard"></h1>
         <div class="table-container" id="tableContainer">
             </div>
     </div>
@@ -82,7 +86,9 @@
     </div>
     
     <script type="module">
-      import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+     import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+
 
       // Your web app's Supabase configuration (COPIED FROM YOUR FORM PAGE)
       const supabaseUrl = 'https://cnnpcbtjlgnwzijmeijj.supabase.co';
