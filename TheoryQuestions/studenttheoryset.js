@@ -1,8 +1,8 @@
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 const supabaseUrl = 'https://cnnpcbtjlgnwzijmeijj.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNubnBjYnRqbGdud3ppam1laWpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMwMzYwNTEsImV4cCI6MjA2ODYxMjA1MX0.XUAfi5Eh3sgc4rYp7K3eOE0q6tfqUHYpXMFFze4Ev0w';
 const supabase = createClient(supabaseUrl, supabaseKey);
+
 
 // Getting Element Begins 
 const timeSetEl = document.querySelector('.timeSet');
@@ -13,6 +13,7 @@ const markGuideEl = document.getElementById('mark');
 const textInputEl = document.getElementById('textInput');
 const submitEl = document.querySelector('.submit');
 const questionsDisplayEl = document.getElementById('questionsDisplay');
+const imageQuestonEL = document.getElementById('editor');
 
 // Getting Elements Ends;
 
@@ -170,18 +171,52 @@ function setupImageUpload() {
 }
 
 // Insert image into editor
-function insertImageIntoEditor(file, editor) {
-  const reader = new FileReader();
-  
-  reader.onload = (e) => {
+async function insertImageIntoEditor(file, editor) {
+  try {
+    // Show a temporary placeholder while uploading
+    const placeholder = document.createElement('div');
+    placeholder.textContent = '⏳ Uploading image...';
+    placeholder.style.color = '#888';
+    placeholder.id = 'img-placeholder';
+    editor.appendChild(placeholder);
+
+    // Generate a unique file name
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+    const filePath = `theory-questions/${selectedClassParam}/${selectedSubjectParam}/${fileName}`;
+
+    // Upload to Supabase Storage
+    const { data: uploadData, error: uploadError } = await supabase
+      .storage
+      .from('image') // <-- your bucket name
+      .upload(filePath, file, {
+        cacheControl: '3600',
+        upsert: false
+      });
+
+    if (uploadError) throw uploadError;
+
+    // Get the public URL
+    const { data: urlData } = supabase
+      .storage
+      .from('image')
+      .getPublicUrl(filePath);
+
+    const publicUrl = urlData.publicUrl;
+
+    // Remove placeholder
+    const ph = document.getElementById('img-placeholder');
+    if (ph) ph.remove();
+
+    // Create the image element with the storage URL
     const img = document.createElement('img');
-    img.src = e.target.result;
+    img.src = publicUrl;
     img.style.maxWidth = '100%';
     img.style.height = 'auto';
     img.style.display = 'block';
     img.style.margin = '10px 0';
-    img.setAttribute('data-image-base64', e.target.result);
-    
+    img.setAttribute('data-storage-path', filePath); // store path for future deletion if needed
+
     // Insert at cursor position or at the end
     const selection = window.getSelection();
     if (selection.rangeCount > 0) {
@@ -191,32 +226,43 @@ function insertImageIntoEditor(file, editor) {
     } else {
       editor.appendChild(img);
     }
-  };
-  
-  reader.readAsDataURL(file);
+
+    showAlert('Image uploaded successfully!', 'success');
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    const ph = document.getElementById('img-placeholder');
+    if (ph) ph.remove();
+    showAlert('Error uploading image. Please try again.', 'danger');
+  }
 }
 
-// Call this after changeTextArea() is executed
-if (examConfig.addPicture === true) {
-  setTimeout(() => setupImageUpload(), 100);
-}
 
-// Modify your saveQuestion function to include images
+// Save question - now works with storage URLs already embedded in editor HTML
 async function saveQuestionWithImages(e) {
   e.preventDefault();
+
+  if (textInputEl && textInputEl.value !== '') {
+    if (!parseNumber()) {
+      showAlert('Number your questions', 'danger');
+      return;
+    }
+  }
+
+  const editor = document.getElementById('editor');
+  const questionContent = editor ? editor.innerHTML : textInputEl.value.trim();
+
  
-  if(textInputEl.value !== ''){
-     parseNumber();
-  if (!parseNumber()) {
-    showAlert('Number your questions', 'danger');
+  if(editor){
+ if (!questionContent || (editor && editor.innerText.trim() === '' && !editor.querySelector('img'))) {
+    showAlert('Please enter a question.', 'danger');
     return;
   }
   }
 
-
-  const editor = document.getElementById('editor');
-  const questionContent = editor ? editor.innerHTML : textInputEl.value.trim();
-  
+  if (!parseNumber()) {
+    showAlert('Number your questions', 'danger');
+    return;
+  }
 
   try {
     if (editingQuestionId) {
@@ -236,7 +282,7 @@ async function saveQuestionWithImages(e) {
       submitEl.textContent = 'Add Question';
     } else {
       await loadExistingQuestions();
-      
+
       if (currentQuestions.length > 0) {
         showAlert('Edit and update the existing questions', 'danger');
         return;
@@ -247,7 +293,7 @@ async function saveQuestionWithImages(e) {
         .insert([{
           class_selected: selectedClassParam,
           subject_selected: selectedSubjectParam,
-          question_text: questionContent,
+          question_text: questionContent, // HTML with storage URLs embedded
           image_url: null
         }])
         .select();
@@ -269,13 +315,19 @@ async function saveQuestionWithImages(e) {
     } else {
       textInputEl.value = '';
     }
-    
+
     await loadExistingQuestions();
   } catch (error) {
     console.error('Error saving question:', error);
     showAlert('Error saving question. Please try again.', 'danger');
   }
 }
+
+// Call this after changeTextArea() is executed
+if (examConfig.addPicture === true) {
+  setTimeout(() => setupImageUpload(), 100);
+}
+
 
 // Update the displayQuestions function to render HTML content
 function displayQuestionsWithImages() {
@@ -339,7 +391,7 @@ window.editQuestionWithImages = async function(questionId) {
       textInputEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
     
-    showAlert('Editing question. Click "Update Question" to save changes.', 'info');
+    showAlert('Editing question. Click "Update Question" to save changes.', 'success');
   } catch (error) {
     console.error('Error loading question for edit:', error);
     showAlert('Error loading question.', 'danger');
@@ -421,9 +473,15 @@ async function saveQuestion(e) {
   return
  }
   const questionText = textInputEl.value.trim();
+  if(imageQuestonEL){
+const ImageQuestionElS = imageQuestonEL.textContent.trim();
+if(!ImageQuestionElS){
+  showAlert('Please enter a question', 'danger')
+}
+  }
   
   if (!questionText) {
-    showAlert('Please enter a question.', 'warning');
+    showAlert('Please enter a question.', 'danger');
     return;
   }
 
@@ -484,7 +542,7 @@ async function saveQuestion(e) {
     showAlert('Error saving question. Please try again.', 'danger');
   }
 }
-
+const editorEl = document.getElementById('editor'); 
 // Edit question
 window.editQuestion = async function(questionId) {
   try {
@@ -495,15 +553,21 @@ window.editQuestion = async function(questionId) {
       .single();
 
     if (error) throw error;
-
-    textInputEl.value = data.question_text;
+    console.log(textInputEl);
+      if(!textInputEl){
+textInputEl.value = data.question_text;
+      }
+      else{
+        editorEl.innerHTML = data.question_text;
+      }
+    
     editingQuestionId = questionId;
     submitEl.textContent = 'Update Question';
     textInputEl.focus();
     
     // Scroll to textarea
     textInputEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    showAlert('Editing question. Click "Update Question" to save changes.', 'info');
+    showAlert('Editing question. Click "Update Question" to save changes.', 'success');
   } catch (error) {
     console.error('Error loading question for edit:', error);
     showAlert('Error loading question.', 'danger');
