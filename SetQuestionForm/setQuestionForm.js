@@ -16,6 +16,7 @@ const examDate = document.getElementById('DateExam');
 const continueButton = document.getElementById('continue');
 const passageTrue = document.getElementById('Yes');
 const passageFalse = document.getElementById('No');
+const markAwarded = document.getElementById('marks');
 
 
 // Save the default JSS subjects (initial HTML options)
@@ -92,6 +93,9 @@ submitExam.addEventListener('click', async () => {
         dangerSignal('Please select a subject before proceeding.');
         return;
     }
+
+behaviourForMarkAwarded()
+ 
     
     
 
@@ -154,7 +158,7 @@ submitExam.addEventListener('click', async () => {
         });
     } else {
         passageFalse.checked = true;
-        tohandlePassage(); // ensure passage section removed
+    tohandlePassage(); // ensure passage section removed
     }
 
     // Change button to "Update" mode
@@ -179,7 +183,7 @@ else {
             }
         } else {
             // 4. If no config exists, proceed to create a new one.
-            handleCreateNewExam();
+              handleCreateNewExam();
         }
     } catch (error) {
         console.error("Error checking for existing config:", error);
@@ -255,6 +259,7 @@ function validateInputs() {
     const selectedClassValue = selectedClass.value;
     const timeSelectedValue = timeSelected.value;
     const dateExamValue = examDate.value;
+    const markAwardedValue = markAwarded.value;
     const timeExamValue = examTime.value;   
     const yearDate = new Date().getFullYear();
     const month = new Date().getMonth() + 1 < 10 ? `0${new Date().getMonth() + 1}` : `${new Date().getMonth() + 1}`;
@@ -310,6 +315,9 @@ function validateInputs() {
     if(Number(timeSelectedValue) < 1){
         return 'You cannot set time for less than one minutes. Please choose a reasonable time';
     }
+    if(Number(markAwardedValue > 90 || markAwardedValue < 10)){
+        return 'Theory questions cannot be greater 90 neither can it be less than 10'
+    }
     if( dateExamValue < inputDay){
          return 'You cannot set previous date. Please choose a valid date';
 }
@@ -345,7 +353,8 @@ async function handleCreateNewExam() {
         date_exam: examDate.value,
         time_exam: examTime.value,
         passage_workings: toGetPassageInputs(),
-        is_open: false
+        is_open: false,
+        obj_award_mark: await behaviourForMarkAwarded()
     };
 
     try {
@@ -620,10 +629,52 @@ async function findConfigInSupabase(selectedClassByUser, selectedSubjectUser) {
         throw error;
     }
 }
+async function getTheoryMarks(selectedClassByUser, selectedSubjectUser) {
+ 
+    try {
+        const { data, error } = await supabase
+            .from('theory_exam_configs')
+            .select('theory_marks')
+            .eq('subject_selected', selectedSubjectUser)
+            .eq('class_selected', selectedClassByUser)
+            .single()
+
+        if (error && error.code !== 'PGRST116') { // PGRST116 is "no rows returned"
+            throw error;
+        }
+
+        return data; // Will be null if no record found
+    } catch (error) {
+        console.error("Error finding config:", error);
+        throw error;
+    }
+}
+async function behaviourForMarkAwarded(){
+    
+    const theoryAwarded = await getTheoryMarks(selectedClass.value, seletedSubject.value);
+    const theoryno = theoryAwarded || false;
+    const objawardMarks = markAwarded.value
+    const objRealMrks = 100 - parseInt(theoryno.theory_marks);
+    let savedValue = 0
+    console.log(theoryAwarded);
+    if(theoryno.theory_marks){
+          if(objawardMarks !== objRealMrks){
+    dangerSignal(`The available mark is ${objRealMrks} and it has been updated to that score`);
+    savedValue = objRealMrks;
+    }
+    else{
+        savedValue = objawardMarks
+    }
+    }
+    else{
+        savedValue = objawardMarks
+    }
+    return savedValue
+}
 
 function redirectToSubjectPage(subject, selectedClass) {
     if (subject && selectedClass) {
-        location.href = `/QUIZ-APP/RealStudentQuestion/RealStudentQuestion.html?class=${selectedClass}&subject=${subject}`;
+        location.href = `/RealStudentQuestion/RealStudentQuestion.html?class=${selectedClass}&subject=${subject}`;
     } else {
         location.href = 'ErrorPage/Error404.html';
     }
@@ -651,4 +702,3 @@ function successSignal(message) {
         alertEl.style.display = 'none';
     }, 6000);
 }
-
