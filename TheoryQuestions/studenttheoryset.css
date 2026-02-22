@@ -1,6 +1,6 @@
 
         body {
-            color: #eee;
+            color:  #c9d4f8;
             background-color: black;
             font-family: Arial, sans-serif;
         }
@@ -43,12 +43,12 @@
              font-size: 18px;
             padding: 1.5rem 2rem;
             background-color: transparent;
-            color: #eee;
+            color:  #c9d4f8;
             border: 2px solid blue;
             border-radius: 5px;
         }
          .editor::-webkit-scrollbar,textarea::-webkit-scrollbar{
-          background-color: #eee;
+          background-color:  #c9d4f8;
           width: 10px;
         }
         textarea::-webkit-scrollbar-thumb,  .editor::-webkit-scrollbar-thumb{
@@ -121,8 +121,8 @@
             border-radius: 2rem;
         }
         .submit:hover{
-            border-color: #eee;
-            color: #eee;
+            border-color:  #c9d4f8;
+            color:  #c9d4f8;
             cursor: pointer;
         }
 div.logo-con {
