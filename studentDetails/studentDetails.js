@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let displayedStudents = [];
     let allQuizResults = []; // Store all quiz results
     let allSubjects = [];
+    let classResult;
+    let theTheoryMark = [];
     const seniorScienceSubject = [
   "Mathematics", "English Language", "Physics", "Chemistry", "Biology",
   "Further Mathematics", "Economics", "Computer", "Technical drawing",
@@ -53,7 +55,7 @@ const juniorSubject = ["Mathematics","English","Basic science","Basic tech","Bus
         });
     }
     if (!selectedClass || !classes.includes(selectedClass)) {
-      location.href = '/QUIZ-APP/ErrorPage/Error404.html';
+      location.href = '../ErrorPage/Error404.html';
     }
  if (selectedClass.includes('JSS')) {
     allSubjects  = juniorSubject;
@@ -108,6 +110,7 @@ const juniorSubject = ["Mathematics","English","Basic science","Basic tech","Bus
         try {
             // Get all unique IDs for students in this class
             const uniqueIds = allStudents.map(student => student.UniqueId);
+
             
             if (uniqueIds.length === 0) return;
 
@@ -131,16 +134,18 @@ const juniorSubject = ["Mathematics","English","Basic science","Basic tech","Bus
             console.error('Error in fetchAllQuizResults:', error);
         }
     }
+    document.querySelector('.heading-dashboard').textContent = `${termDetection()} result for ${selectedClass} dashboard`.toUpperCase()
 
     // FIXED: Update students with their quiz results - Use stored percentage directly
     function updateStudentsWithQuizResults() {
+       
         allStudents.forEach(student => {
             // Get quiz results for this student
             const studentResults = allQuizResults.filter(result => result.unique_id === student.UniqueId);
             
             // Create quiz scores object from results
             const quizScores = { ...student.quizScores }; // Preserve existing manual scores
-            
+           
             // For each subject, get the latest percentage from quiz results
             allSubjects.forEach(subject => {
                 const subjectResults = studentResults.filter(result => result.subject === subject);
@@ -278,13 +283,90 @@ const juniorSubject = ["Mathematics","English","Basic science","Basic tech","Bus
         generateTable();
         updateStats();
     }
+   function getTheMarkforsubject(){
+    switch(true){
+        case selectedClass.includes('JSS1'):
+            classResult = 'jss1';
+            break;
+        case selectedClass.includes('JSS2'):
+            classResult = 'jss2';
+            break; 
+        case selectedClass.includes('JSS3'):
+            classResult = 'jss3';
+            break;
+        case selectedClass.includes('SSS3AYAM')  || selectedClass.includes('SSS3AGU') || selectedClass.includes('SSS3BARAMA'):
+            classResult = 'ss3Science';
+            break; 
+        case selectedClass.includes('SSS3DAMISA'):
+            classResult = 'ss3Commercial';
+            break;
+        case selectedClass.includes('SSS3EKPE'):
+            classResult = 'ss3Art';
+            break; 
+        case selectedClass.includes('SSS2AYAM')  || selectedClass.includes('SSS2AGU') || selectedClass.includes('SSS2BARAMA'):
+            classResult = 'ss2Science';
+            break; 
+        case selectedClass.includes('SSS2DAMISA'):
+            classResult = 'ss2Commercial';
+            break;
+        case selectedClass.includes('SSS2EKPE'):
+            classResult = 'ss2Art';
+            break; 
+        case selectedClass.includes('SSS1AYAM')  || selectedClass.includes('SSS1AGU') || selectedClass.includes('SSS1BARAMA'):
+            classResult = 'ss1Science';
+            break; 
+        case selectedClass.includes('SSS1DAMISA'):
+            classResult = 'ss2Commercial';
+            break;
+        case selectedClass.includes('SSS1EKPE'):
+            classResult = 'ss2Art';
+            break; 
+    } 
+    return classResult;
+}
+getTheMarkforsubject();
+    
+async function getobjMark(){
+   const { data, error } = await supabase
+  .from('exam_configs')
+  .select('classes_student, obj_award_mark, subject_selected')
+   .eq('classes_student', classResult)
 
-    function generateTable() {
+if (error) {
+  console.error('Error fetching exam_config:', error)
+} else {
+  return data
+}
+}
+
+async function gettheorymark(){
+   const { data, error } = await supabase
+  .from('theory_exam_configs')
+  .select('class_selected, subject_selected, theory_marks')
+   .eq('class_selected', classResult)
+
+if (error) {
+  console.error('Error fetching exam_config:', error)
+} else {
+  return data
+}
+}
+
+
+
+
+
+console.log(classResult);
+  async  function generateTable() {
         const container = document.getElementById('tableContainer');
         if (displayedStudents.length === 0) {
             container.innerHTML = `<div class="no-data"><h3>No Students Found</h3><p>Add a student using the form or check your search term.</p></div>`;
             return;
         }
+        let recordObj = await getFound(await getobjMark())
+        let recordtheory = await getFound(await(gettheorymark()))
+        console.log(recordObj);
+        console.log(recordtheory);
 
         let tableHTML = `
             <table class="table">
@@ -294,7 +376,17 @@ const juniorSubject = ["Mathematics","English","Basic science","Basic tech","Bus
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Unique ID</th>
-                        ${allSubjects.map(subject => `<th>${subject}</th>`).join('')}
+                        ${allSubjects.map((subject, index) => `<th>${subject}
+                            <div class='parents-obj'>
+                           <div>
+                           Theory
+                           <div>${recordtheory[index]}</div>
+                           </div>
+                           <div>Obj
+                           <div>${(recordObj[index])}</div>
+                           </div>
+                           </div>
+                            </th>`).join('')}
                         <th>Average</th>
                         <th>Position</th>
                         <th>Remark</th>
@@ -303,6 +395,7 @@ const juniorSubject = ["Mathematics","English","Basic science","Basic tech","Bus
                 </thead>
                 <tbody>
         `;
+      
 
         displayedStudents.forEach((student, index) => {
             const average = calculateAverage(student);
@@ -358,6 +451,23 @@ const juniorSubject = ["Mathematics","English","Basic science","Basic tech","Bus
 
         tableHTML += `</tbody></table>`;
         container.innerHTML = tableHTML;
+    }
+     async function getFound(schema){
+        let isthere = [];
+        const value = await schema;
+        console.log(schema)
+        allSubjects.map((subject)=>{
+        
+           const found = value.find(item =>item.subject_selected === subject)
+         if(found === undefined || found.obj_award_mark === null){
+            isthere.push(0);
+         }
+         else{
+isthere.push(found.obj_award_mark);
+         }
+         
+        })
+return isthere
     }
 
     function updateStats() {
@@ -913,6 +1023,22 @@ const juniorSubject = ["Mathematics","English","Basic science","Basic tech","Bus
         document.getElementById('editModal').style.display = 'none';
         editingStudentId = null;
     }
+    function termDetection(){
+    let term = 'First Term';
+    if(term === 'Third Term'){
+      term = 'First Term'
+    }
+    else if(term === 'First Term'){
+      term = 'Second Term'
+    }
+    else if(term === 'Second Term'){
+      term = 'Third Term'
+    }
+    else{
+      term = 'First Term'
+    }
+    return term
+  }
 
     function toggleTheme() {
         document.body.classList.toggle('light-mode');
@@ -961,5 +1087,5 @@ const juniorSubject = ["Mathematics","English","Basic science","Basic tech","Bus
     window.getStudentResults = getStudentResults;
 
     initializeApp();
-
+     
 });
