@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Theory</title>
+</head>
+<body>
+    <link rel="stylesheet" href="studentTheoryForm.css">
+    <header>
+        <div class="logo-con">
+             <img src="../WhatsApp Image 2025-06-19 at 09.05.51_065ea148.jpg" alt="Navy Secondary School Abeokuta" class="logo">
+              <h1 class="title">Navy Secondary School Abeokuta</h1>
+        </div>
+    </header>
+    
+    <main>
+        <h1>Setting School Examination for Theory</h1>
+        <form id="examForm">
+            <label for="questionShown">Theory Marks</label>
+            <input type="number" max="250" min="5" class="shownQuestion" id="questionShown" required>
+            
+            <label for="examDate">Date of Exam</label> 
+            <input type="date" class="examDate" id="examDate" required>
+            
+            <label for="examTime">Time of Exam</label> 
+            <input type="time" class="examTime" id="examTime" required>
+            
+            <label for="timeDuration">Time Duration (in minutes)</label> 
+            <input type="number" max="300" min="10" class="timeDuration" id="timeDuration" required>
+            
+            <label for="teacherMessage">Teacher Message</label> 
+            <input type="text" class="teacherMessage" id="teacherMessage" placeholder="e.g., Answer all questions">
+            
+            <label style="margin-bottom: 0.5rem;">Add Picture?</label>
+            <div class="radio-group">
+                <input type="radio" name="addPicture" id="pictureYes" value="yes">
+                <label for="pictureYes" class="radio-label">Yes</label>
+                <input type="radio" name="addPicture" id="pictureNo" value="no" checked>
+                <label for="pictureNo" class="radio-label">No</label>
+            </div>
+            
+            <select name="class" id="selectedClass" required>
+                <option value="">Choose the class you want to set question for</option>
+                <option value="jss1">JSS1</option>
+                <option value="jss2">JSS2</option>
+                <option value="jss3">JSS3</option>
+                <option value="ss1Art">SS1 (Art)</option>
+                <option value="ss2Art">SS2 (Art)</option>
+                <option value="ss3Art">SS3 (Art)</option>
+                <option value="ss1Science">SS1 (Science)</option>
+                <option value="ss2Science">SS2 (Science)</option>
+                <option value="ss3Science">SS3 (Science)</option>
+                <option value="ss1Commercial">SS1 (Commercial)</option>
+                <option value="ss2Commercial">SS2 (Commercial)</option>
+                <option value="ss3Commercial">SS3 (Commercial)</option>
+            </select>
+            
+            <select name="subject" id="selectSubject" required>
+                <option value="">Select the subject you want to set</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="English">English</option>
+                <option value="Basic science">Basic Science</option>
+                <option value="Basic tech">Basic Tech</option>
+                <option value="Business studies">Business Studies</option>
+                <option value="Agric Science">Agric Science</option>
+                <option value="French">French</option>
+                <option value="Home Economics">Home Economics</option>
+                <option value="History">History</option>
+                <option value="Physical Health Education">Physical Health Education</option>
+                <option value="National value">National Value</option>
+                <option value="CCA Art">CCA Art</option>
+                <option value="CCA Drama">CCA Drama</option>
+                <option value="CCA Music">CCA Music</option>
+                <option value="Christian Religious Studies">Christian Religious Studies</option>
+                <option value="Islamic Religious Studies">Islamic Religious Studies</option>
+                <option value="Yoruba">Yoruba</option>
+                <option value="Igbo">Igbo</option>
+                <option value="Computer">Computer</option>
+                <option value="Cisco">Cisco</option>
+                <option value="Guidance and Counseling">Guidance and Counseling</option>
+            </select>
+            
+            <div class="alert" id="alertBox" style="display: none;"></div>
+            
+            <button id="submit" type="button">Set Student Exam</button>
+            <button id="continue" type="button">Continue Setting Exam Question</button>
+        </form>
+    </main>
+    <script src="studentTheoryForm.js" type="module"></script>
+</body>
+</html>

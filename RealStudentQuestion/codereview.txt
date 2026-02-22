@@ -1,0 +1,52 @@
+async function behaviortoaddPassage() {
+  const passageText = document.getElementById('passageQuestionsTextarea');
+  const passageTextValue = passageText.innerHTML.trim();
+
+  const exampassage = await loadexamconfig();
+  const passages = exampassage[0].passage_workings;
+
+  const maxQuestions = Number(passages[currentPassageIndex].value);
+
+  // 🔐 VALIDATION
+  if (!passageTextValue) {
+    showAlert('Passage text cannot be empty', 'danger');
+    return;
+  }
+
+  if (!validatePassageBeforeSave(maxQuestions)) {
+    showAlert('Complete all passage questions before saving', 'danger');
+    return;
+  }
+
+  const passagePayload = {
+    subject: selectedSubjectUser.trim(),
+    classes_student: selectedClassByUser.trim(),
+    passage_text: passageTextValue,
+    passage_number: maxQuestions,
+    is_compulsory: passages[currentPassageIndex].compulsory,
+    questions: passageOption, // jsonb
+    passage_position: currentPassageIndex + 1
+  };
+
+  try {
+    const { error } = await supabase
+      .from('exam_passages')
+      .insert([passagePayload]);
+
+    if (error) throw error;
+
+    showAlert(
+      `Passage ${currentPassageIndex + 1} saved successfully`,
+      'success'
+    );
+
+    // RESET STATE AFTER SAVE
+    passageOption = [];
+    increase = 0;
+    initializepassagevalue();
+
+  } catch (err) {
+    console.error(err);
+    showAlert('Failed to save passage', 'danger');
+  }
+}
