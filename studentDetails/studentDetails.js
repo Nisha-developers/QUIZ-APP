@@ -380,10 +380,10 @@ console.log(classResult);
                             <div class='parents-obj'>
                            <div>
                            Theory
-                           <div>${100-(recordObj[index] ?? 0) || recordtheory[index]}</div>
+                           <div>${recordtheory[index]}</div>
                            </div>
                            <div>Obj
-                           <div>${(recordObj[index] ?? 0) || (100 - recordtheory[index])}</div>
+                           <div>${(recordObj[index])}</div>
                            </div>
                            </div>
                             </th>`).join('')}
